@@ -30,6 +30,7 @@ int Knight::slashAttack(int enemyAC)
         if (i == 1) {
             cout << name << " stumbled and accidently cut themselves!" << endl;
             hp = hp - (rollD4() + dex);
+            return 0;
         }
         else if (i == 2) {
             cout << name << " landed a critical hit!" << endl;
