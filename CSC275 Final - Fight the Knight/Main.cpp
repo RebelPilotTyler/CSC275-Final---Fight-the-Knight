@@ -6,6 +6,11 @@
 #include "Archer.h"
 #include "Wizard.h"
 #include <string.h>
+#ifdef _WIN32																										//The next few lines include a library for the sleep function, which allows for the program to be delayed.
+#include <Windows.h>
+#else
+#include <unistd.h>
+#endif
 using namespace std;
 string playerName;
 int XP;
@@ -25,10 +30,16 @@ Knight enemyKnight;
 Archer enemyArcher;
 Wizard enemyWizard;
 bool saving = false;
+bool firstMenu = true;
+void clearScreen() {
+	for (int i = 0; i <= 50; i++) {
+		cout << endl;
+	}
+}
 void buildNewCharacter() {
-	cout << endl;
+	clearScreen();
 	cout << "Select a class for your character:" << endl;
-	cout << "Knight, Archer, Wizard" << endl;
+	cout << "Knight | Archer | Wizard" << endl;
 	cin >> answer;
 	try
 	{
@@ -118,7 +129,9 @@ void buildNewCharacter() {
 			buildNewCharacter();
 		}
 	}
+	Sleep(1000);
 	cout << "Creating character stats..." << endl;
+	Sleep(2000);
 	try
 	{
 		if (charClass == 'k') {
@@ -184,6 +197,7 @@ void buildNewCharacter() {
 		}
 	}
 	cout << "Alright " << playerName << ", you're all set to play!" << endl;
+	Sleep(3000);
 }
 void welcome() {
 	cout << endl;
@@ -212,9 +226,7 @@ void welcome() {
 	}
 }
 void mainMenu() {
-	cout << endl;
-	cout << endl;
-	cout << endl;
+	clearScreen();
 	cout << "MAIN MENU" << endl;
 	cout << "What would you like to do?" << endl;
 	cout << "Save and Exit | Play | Build New Character | View Stats | Level Up Character | Reset Save" << endl;
@@ -224,7 +236,8 @@ void mainMenu() {
 		if (answer == "Save and Exit") {
 			cout << endl;
 			cout << endl;
-			std::cout << "Saving progress..." << endl;																
+			std::cout << "Saving progress..." << endl;
+			Sleep(2000);
 			outFile.open("Save File.txt");																			
 			outFile.clear();
 			outFile << "0" << endl;
@@ -292,17 +305,22 @@ void mainMenu() {
 			}
 			outFile.close();
 			cout << "Save complete!" << endl;
+			Sleep(1000);
 			cout << "Play again soon!" << endl;
-			saving = true;
+			Sleep(1500);
+			exit(0);
 			return;
 		}
 		else if (answer == "Play") {
 			cout << endl;
 			cout << "Preparing to battle..." << endl;
+			Sleep(2000);
+			clearScreen();
 			cout << "First, please select your opponent:" << endl;
 			cout << "Knight | Archer | Wizard" << endl;
 			cin >> answer;
 			cout << "Creating character stats..." << endl;
+			Sleep(2000);
 			try
 			{
 				if (answer == "Knight") {
@@ -453,10 +471,13 @@ void mainMenu() {
 				}
 			}
 			cout << "Your opponent is ready!" << endl;
+			Sleep(1500);
 			cout << "Let the battle begin!" << endl;
+			Sleep(3000);
 			return;
 		}
 		else if (answer == "Build New Character") {
+		cout << endl;
 			cout << "Creating a new character will erase your old character, are you sure?" << endl;
 			cin >> answer;
 			try
@@ -480,7 +501,7 @@ void mainMenu() {
 			mainMenu();
 		}
 		else if (answer == "View Stats") {
-			cout << endl;
+		clearScreen();
 			cout << "Here are your current stats for Fight the Knight:" << endl;
 			cout << "Player's Name: " << playerName << endl;
 			cout << "Experience: " << XP << endl;
@@ -547,9 +568,15 @@ void mainMenu() {
 					mainMenu();
 				}
 			}
+			cout << endl;
+			cout << endl;
+			cout << endl;
+			cout << "Press Enter to return to the Main Menu." << endl;
+			cin.ignore();
 			mainMenu();
 		}
 		else if (answer == "Level Up Character") {
+			clearScreen();
 			cout << "Here are the current stats for your character:" << endl;
 			try
 			{
@@ -610,6 +637,7 @@ void mainMenu() {
 				}
 			}
 			cout << endl;
+			Sleep(1500);
 			cout << "Which stat would you like to upgrade?" << endl;
 			cout << "Strength | Dexterity | Constitution | Intelligence | Wisdom | Charisma" << endl;
 			cin >> answer;
@@ -625,6 +653,7 @@ void mainMenu() {
 					{
 						if (answer == "Yes") {
 							cout << "Upgrading..." << endl;
+							Sleep(2000);
 							try
 							{
 								if (charClass == 'k') {
@@ -648,6 +677,7 @@ void mainMenu() {
 									playerKnight.maxHP += playerKnight.rollD8();
 									XP -= 5;
 									cout << "Strength Upgraded to " << playerKnight.str << endl;
+									Sleep(2000);
 									mainMenu();
 								}
 								if (i == 2) {
@@ -656,6 +686,7 @@ void mainMenu() {
 									playerArcher.maxHP += playerArcher.rollD8();
 									XP -= 5;
 									cout << "Strength Upgraded to " << playerArcher.str << endl;
+									Sleep(2000);
 									mainMenu();
 								}
 								if (i == 3) {
@@ -664,6 +695,7 @@ void mainMenu() {
 									playerWizard.maxHP += playerWizard.rollD8();
 									XP -= 5;
 									cout << "Strength Upgraded to " << playerWizard.str << endl;
+									Sleep(2000);
 									mainMenu();
 								}
 								else if (i == 4) {
@@ -692,6 +724,7 @@ void mainMenu() {
 					{
 						if (answer == "Yes") {
 							cout << "Upgrading..." << endl;
+							Sleep(2000);
 							try
 							{
 								if (charClass == 'k') {
@@ -715,6 +748,7 @@ void mainMenu() {
 									playerKnight.maxHP += playerKnight.rollD8();
 									XP -= 5;
 									cout << "Dexterity Upgraded to " << playerKnight.dex << endl;
+									Sleep(2000);
 									mainMenu();
 								}
 								if (i == 2) {
@@ -723,6 +757,7 @@ void mainMenu() {
 									playerArcher.maxHP += playerArcher.rollD8();
 									XP -= 5;
 									cout << "Dexterity Upgraded to " << playerArcher.dex << endl;
+									Sleep(2000);
 									mainMenu();
 								}
 								if (i == 3) {
@@ -731,6 +766,7 @@ void mainMenu() {
 									playerWizard.maxHP += playerWizard.rollD8();
 									XP -= 5;
 									cout << "Dexterity Upgraded to " << playerWizard.dex << endl;
+									Sleep(2000);
 									mainMenu();
 								}
 								else if (i == 4) {
@@ -759,6 +795,7 @@ void mainMenu() {
 				{
 					if (answer == "Yes") {
 						cout << "Upgrading..." << endl;
+						Sleep(2000);
 						try
 						{
 							if (charClass == 'k') {
@@ -782,6 +819,7 @@ void mainMenu() {
 								playerKnight.maxHP += playerKnight.rollD8();
 								XP -= 5;
 								cout << "Constitution Upgraded to " << playerKnight.con << endl;
+								Sleep(2000);
 								mainMenu();
 							}
 							if (i == 2) {
@@ -790,6 +828,7 @@ void mainMenu() {
 								playerArcher.maxHP += playerArcher.rollD8();
 								XP -= 5;
 								cout << "Constitution Upgraded to " << playerArcher.con << endl;
+								Sleep(2000);
 								mainMenu();
 							}
 							if (i == 3) {
@@ -798,6 +837,7 @@ void mainMenu() {
 								playerWizard.maxHP += playerWizard.rollD8();
 								XP -= 5;
 								cout << "Constitution Upgraded to " << playerWizard.con << endl;
+								Sleep(2000);
 								mainMenu();
 							}
 							else if (i == 4) {
@@ -826,6 +866,7 @@ void mainMenu() {
 				{
 					if (answer == "Yes") {
 						cout << "Upgrading..." << endl;
+						Sleep(2000);
 						try
 						{
 							if (charClass == 'k') {
@@ -849,6 +890,7 @@ void mainMenu() {
 								playerKnight.maxHP += playerKnight.rollD8();
 								XP -= 5;
 								cout << "Intelligence Upgraded to " << playerKnight.inT << endl;
+								Sleep(2000);
 								mainMenu();
 							}
 							if (i == 2) {
@@ -857,6 +899,7 @@ void mainMenu() {
 								playerArcher.maxHP += playerArcher.rollD8();
 								XP -= 5;
 								cout << "Intelligence Upgraded to " << playerArcher.inT << endl;
+								Sleep(2000);
 								mainMenu();
 							}
 							if (i == 3) {
@@ -865,6 +908,7 @@ void mainMenu() {
 								playerWizard.maxHP += playerWizard.rollD8();
 								XP -= 5;
 								cout << "Intelligence Upgraded to " << playerWizard.inT << endl;
+								Sleep(2000);
 								mainMenu();
 							}
 							else if (i == 4) {
@@ -893,6 +937,7 @@ void mainMenu() {
 				{
 					if (answer == "Yes") {
 						cout << "Upgrading..." << endl;
+						Sleep(2000);
 						try
 						{
 							if (charClass == 'k') {
@@ -916,6 +961,7 @@ void mainMenu() {
 								playerKnight.maxHP += playerKnight.rollD8();
 								XP -= 5;
 								cout << "Wisdom Upgraded to " << playerKnight.wis << endl;
+								Sleep(2000);
 								mainMenu();
 							}
 							if (i == 2) {
@@ -924,6 +970,7 @@ void mainMenu() {
 								playerArcher.maxHP += playerArcher.rollD8();
 								XP -= 5;
 								cout << "Wisdom Upgraded to " << playerArcher.wis << endl;
+								Sleep(2000);
 								mainMenu();
 							}
 							if (i == 3) {
@@ -932,6 +979,7 @@ void mainMenu() {
 								playerWizard.maxHP += playerWizard.rollD8();
 								XP -= 5;
 								cout << "Wisdom Upgraded to " << playerWizard.wis << endl;
+								Sleep(2000);
 								mainMenu();
 							}
 							else if (i == 4) {
@@ -960,6 +1008,7 @@ void mainMenu() {
 				{
 					if (answer == "Yes") {
 						cout << "Upgrading..." << endl;
+						Sleep(2000);
 						try
 						{
 							if (charClass == 'k') {
@@ -983,6 +1032,7 @@ void mainMenu() {
 								playerKnight.maxHP += playerKnight.rollD8();
 								XP -= 5;
 								cout << "Charisma Upgraded to " << playerKnight.cha << endl;
+								Sleep(2000);
 								mainMenu();
 							}
 							if (i == 2) {
@@ -991,6 +1041,7 @@ void mainMenu() {
 								playerArcher.maxHP += playerArcher.rollD8();
 								XP -= 5;
 								cout << "Charisma Upgraded to " << playerArcher.cha << endl;
+								Sleep(2000);
 								mainMenu();
 							}
 							if (i == 3) {
@@ -999,6 +1050,7 @@ void mainMenu() {
 								playerWizard.maxHP += playerWizard.rollD8();
 								XP -= 5;
 								cout << "Charisma Upgraded to " << playerWizard.cha << endl;
+								Sleep(2000);
 								mainMenu();
 							}
 							else if (i == 4) {
@@ -1043,10 +1095,12 @@ void mainMenu() {
 		{
 			if (answer == "Yes") {
 				cout << "Resetting..." << endl;
+				Sleep(2000);
 				outFile.open("Save File.txt");
 				outFile.clear();
-				saving = true;
-				return;
+				cout << "Reset Complete." << endl;
+				Sleep(2000);
+				exit(0);
 			}
 			else if (answer == "No") {
 				mainMenu();
@@ -1063,6 +1117,9 @@ void mainMenu() {
 			}
 		}
 		}
+		else if (answer == "") {
+			throw 1;
+		}
 		else if (answer != "Save and Exit" && answer != "Play" && answer != "Build New Character" && answer != "View Stats" && answer != "Level Up Character") {
 			throw 5;
 		}
@@ -1073,6 +1130,9 @@ void mainMenu() {
 			cout << "ERROR: Invalid answer" << endl;
 			mainMenu();
 		}
+		if (i == 1) {
+			mainMenu();
+		}
 	}
 }
 void checkBattleEnd() {
@@ -1081,180 +1141,234 @@ void checkBattleEnd() {
 		if (charClass == 'k' && enemyClass == 'k') {
 			if (playerKnight.hp <= 0) {
 				cout << playerKnight.name << " fainted from exhaustion!" << endl;
+				Sleep(3000);
 				cout << playerName << " lost the fight!" << endl;
 				battlesPlayed += 1;
 				battlesLost += 1;
 				playerKnight.hp = playerKnight.maxHP;
 				XP++;
+				cout << "Press Enter to continue." << endl;
+				cin.ignore();
 				mainMenu();
 			}
 			else if (enemyKnight.hp <= 0) {
 				cout << enemyKnight.name << " fainted from exhaustion!" << endl;
+				Sleep(3000);
 				cout << playerName << " won the fight!" << endl;
 				battlesPlayed++;
 				battlesWon++;
 				playerKnight.hp = playerKnight.maxHP;
 				XP += 3;
+				cout << "Press Enter to continue." << endl;
+				cin.ignore();
 				mainMenu();
 			}
 		}
 		else if (charClass == 'k' && enemyClass == 'a') {
 			if (playerKnight.hp <= 0) {
 				cout << playerKnight.name << " fainted from exhaustion!" << endl;
+				Sleep(3000);
 				cout << playerName << " lost the fight!" << endl;
 				battlesPlayed += 1;
 				battlesLost += 1;
 				playerKnight.hp = playerKnight.maxHP;
 				XP++;
+				cout << "Press Enter to continue." << endl;
+				cin.ignore();
 				mainMenu();
 			}
 			else if (enemyArcher.hp <= 0) {
 				cout << enemyArcher.name << " fainted from exhaustion!" << endl;
+				Sleep(3000);
 				cout << playerName << " won the fight!" << endl;
 				battlesPlayed++;
 				battlesWon++;
 				playerKnight.hp = playerKnight.maxHP;
 				XP += 3;
+				cout << "Press Enter to continue." << endl;
+				cin.ignore();
 				mainMenu();
 			}
 		}
 		else if (charClass == 'k' && enemyClass == 'w') {
 			if (playerKnight.hp <= 0) {
 				cout << playerKnight.name << " fainted from exhaustion!" << endl;
+				Sleep(3000);
 				cout << playerName << " lost the fight!" << endl;
 				battlesPlayed += 1;
 				battlesLost += 1;
 				playerKnight.hp = playerKnight.maxHP;
 				XP++;
+				cout << "Press Enter to continue." << endl;
+				cin.ignore();
 				mainMenu();
 			}
 			else if (enemyWizard.hp <= 0) {
 				cout << enemyWizard.name << " fainted from exhaustion!" << endl;
+				Sleep(3000);
 				cout << playerName << " won the fight!" << endl;
 				battlesPlayed++;
 				battlesWon++;
 				playerKnight.hp = playerKnight.maxHP;
 				XP += 3;
+				cout << "Press Enter to continue." << endl;
+				cin.ignore();
 				mainMenu();
 			}
 		}
 		else if (charClass == 'a' && enemyClass == 'k') {
 			if (playerArcher.hp <= 0) {
 				cout << playerArcher.name << " fainted from exhaustion!" << endl;
+				Sleep(3000);
 				cout << playerName << " lost the fight!" << endl;
 				battlesPlayed += 1;
 				battlesLost += 1;
 				playerArcher.hp = playerArcher.maxHP;
 				XP++;
+				cout << "Press Enter to continue." << endl;
+				cin.ignore();
 				mainMenu();
 			}
 			else if (enemyKnight.hp <= 0) {
 				cout << enemyKnight.name << " fainted from exhaustion!" << endl;
+				Sleep(3000);
 				cout << playerName << " won the fight!" << endl;
 				battlesPlayed++;
 				battlesWon++;
 				playerArcher.hp = playerArcher.maxHP;
 				XP += 3;
+				cout << "Press Enter to continue." << endl;
+				cin.ignore();
 				mainMenu();
 			}
 		}
 		else if (charClass == 'a' && enemyClass == 'a') {
 			if (playerArcher.hp <= 0) {
 				cout << playerArcher.name << " fainted from exhaustion!" << endl;
+				Sleep(3000);
 				cout << playerName << " lost the fight!" << endl;
 				battlesPlayed += 1;
 				battlesLost += 1;
 				playerArcher.hp = playerArcher.maxHP;
 				XP++;
+				cout << "Press Enter to continue." << endl;
+				cin.ignore();
 				mainMenu();
 			}
 			else if (enemyArcher.hp <= 0) {
 				cout << enemyArcher.name << " fainted from exhaustion!" << endl;
+				Sleep(3000);
 				cout << playerName << " won the fight!" << endl;
 				battlesPlayed++;
 				battlesWon++;
 				playerArcher.hp = playerArcher.maxHP;
 				XP += 3;
+				cout << "Press Enter to continue." << endl;
+				cin.ignore();
 				mainMenu();
 			}
 		}
 		else if (charClass == 'a' && enemyClass == 'w') {
 		if (playerArcher.hp <= 0) {
 			cout << playerArcher.name << " fainted from exhaustion!" << endl;
+			Sleep(3000);
 			cout << playerName << " lost the fight!" << endl;
 			battlesPlayed += 1;
 			battlesLost += 1;
 			playerArcher.hp = playerArcher.maxHP;
 			XP++;
+			cout << "Press Enter to continue." << endl;
+			cin.ignore();
 			mainMenu();
 		}
 		else if (enemyWizard.hp <= 0) {
 			cout << enemyWizard.name << " fainted from exhaustion!" << endl;
+			Sleep(3000);
 			cout << playerName << " won the fight!" << endl;
 			battlesPlayed++;
 			battlesWon++;
 			playerArcher.hp = playerArcher.maxHP;
 			XP += 3;
+			cout << "Press Enter to continue." << endl;
+			cin.ignore();
 			mainMenu();
 		}
 		}
 		else if (charClass == 'w' && enemyClass == 'k') {
 		if (playerWizard.hp <= 0) {
 			cout << playerWizard.name << " fainted from exhaustion!" << endl;
+			Sleep(3000);
 			cout << playerName << " lost the fight!" << endl;
 			battlesPlayed += 1;
 			battlesLost += 1;
 			playerWizard.hp = playerWizard.maxHP;
 			XP++;
+			cout << "Press Enter to continue." << endl;
+			cin.ignore();
 			mainMenu();
 		}
 		else if (enemyKnight.hp <= 0) {
 			cout << enemyKnight.name << " fainted from exhaustion!" << endl;
+			Sleep(3000);
 			cout << playerName << " won the fight!" << endl;
 			battlesPlayed++;
 			battlesWon++;
 			playerWizard.hp = playerWizard.maxHP;
 			XP += 3;
+			cout << "Press Enter to continue." << endl;
+			cin.ignore();
 			mainMenu();
 		}
 		}
 		else if (charClass == 'w' && enemyClass == 'a') {
 		if (playerWizard.hp <= 0) {
 			cout << playerWizard.name << " fainted from exhaustion!" << endl;
+			Sleep(3000);
 			cout << playerName << " lost the fight!" << endl;
 			battlesPlayed += 1;
 			battlesLost += 1;
 			playerWizard.hp = playerWizard.maxHP;
 			XP++;
+			cout << "Press Enter to continue." << endl;
+			cin.ignore();
 			mainMenu();
 		}
 		else if (enemyArcher.hp <= 0) {
 			cout << enemyArcher.name << " fainted from exhaustion!" << endl;
+			Sleep(3000);
 			cout << playerName << " won the fight!" << endl;
 			battlesPlayed++;
 			battlesWon++;
 			playerWizard.hp = playerWizard.maxHP;
 			XP += 3;
+			cout << "Press Enter to continue." << endl;
+			cin.ignore();
 			mainMenu();
 		}
 		}
 		else if (charClass == 'w' && enemyClass == 'w') {
 		if (playerWizard.hp <= 0) {
 			cout << playerWizard.name << " fainted from exhaustion!" << endl;
+			Sleep(3000);
 			cout << playerName << " lost the fight!" << endl;
 			battlesPlayed += 1;
 			battlesLost += 1;
 			playerWizard.hp = playerWizard.maxHP;
 			XP++;
+			cout << "Press Enter to continue." << endl;
+			cin.ignore();
 			mainMenu();
 		}
 		else if (enemyWizard.hp <= 0) {
 			cout << enemyWizard.name << " fainted from exhaustion!" << endl;
+			Sleep(3000);
 			cout << playerName << " won the fight!" << endl;
 			battlesPlayed++;
 			battlesWon++;
 			playerWizard.hp = playerWizard.maxHP;
 			XP += 3;
+			cout << "Press Enter to continue." << endl;
+			cin.ignore();
 			mainMenu();
 		}
 		}
@@ -1271,7 +1385,7 @@ void checkBattleEnd() {
 	}
 }
 void battlekk() {
-	cout << endl;
+	clearScreen();
 	cout << playerName << endl;
 	cout << "HP: " << playerKnight.hp << "/" << playerKnight.maxHP << endl;
 	cout << "AC: " << playerKnight.modAC << "/" << playerKnight.AC << endl;
@@ -1284,6 +1398,7 @@ void battlekk() {
 		enemyKnight.modAC = enemyKnight.AC;
 		cout << endl;
 		cout << playerKnight.name << " speeds ahead of their opponent..." << endl;
+		Sleep(2000);
 		cout << endl;
 		cout << "What move would you like to use?" << endl;
 		cout << "Move List:" << endl;
@@ -1293,6 +1408,7 @@ void battlekk() {
 		cout << "Stab Attack: A basic stab attack." << endl;
 		cout << "Block: Use your shield to help block attacks!" << endl;
 		getline(cin, answer);
+		Sleep(2000);
 		try
 		{
 			if (answer == "Dodge") {
@@ -1325,7 +1441,8 @@ void battlekk() {
 		}
 
 		
-
+		cout << "Press Enter to continue." << endl;
+		cin.ignore();
 		cout << endl;
 		cout << endl;
 		int enemyMove = rand() % 5 + 1;
@@ -1359,10 +1476,12 @@ void battlekk() {
 				battlekk();
 			}
 		}
+		Sleep(5000);
 	}
 	else if (enemyKnight.dex >= playerKnight.dex) {
 		cout << endl;
 		cout << enemyKnight.name << " speeds ahead of " << playerKnight.name << "..." << endl;
+		Sleep(3000);
 		cout << endl;
 		int enemyMove = rand() % 5 + 1;
 		try
@@ -1397,7 +1516,8 @@ void battlekk() {
 		}
 
 
-
+		cout << "Press Enter to continue." << endl;
+		cin.ignore();
 		playerKnight.modAC = playerKnight.AC;
 		enemyKnight.modAC = enemyKnight.AC;
 		cout << endl;
@@ -1410,6 +1530,7 @@ void battlekk() {
 		cout << "Stab Attack: A basic stab attack." << endl;
 		cout << "Block: Use your shield to help block attacks!" << endl;
 		getline(cin, answer);
+		Sleep(2000);
 		try
 		{
 			if (answer == "Dodge") {
@@ -1440,7 +1561,10 @@ void battlekk() {
 				battlekk();
 			}
 		}
+		Sleep(5000);
 	}
+	cout << "Press Enter to continue." << endl;
+	cin.ignore();
 	battlekk();
 }
 void battleka() {
@@ -1472,38 +1596,47 @@ void battleStart() {
 	{
 		if (charClass == 'k' && enemyClass == 'k') {
 			playerKnight.hp = playerKnight.maxHP;
+			playerKnight.modAC = playerKnight.AC;
 			battlekk();
 		}
 		else if (charClass == 'k' && enemyClass == 'a') {
 			playerKnight.hp = playerKnight.maxHP;
+			playerKnight.modAC = playerKnight.AC;
 			battleka();
 		}
 		else if (charClass == 'k' && enemyClass == 'w') {
 			playerKnight.hp = playerKnight.maxHP;
+			playerKnight.modAC = playerKnight.AC;
 			battlekw();
 		}
 		else if (charClass == 'a' && enemyClass == 'k') {
 			playerArcher.hp = playerArcher.maxHP;
+			playerArcher.modAC = playerArcher.AC;
 			battleak();
 		}
 		else if (charClass == 'a' && enemyClass == 'a') {
 			playerArcher.hp = playerArcher.maxHP;
+			playerArcher.modAC = playerArcher.AC;
 			battleaa();
 		}
 		else if (charClass == 'a' && enemyClass == 'w') {
 			playerArcher.hp = playerArcher.maxHP;
+			playerArcher.modAC = playerArcher.AC;
 			battleaw();
 		}
 		else if (charClass == 'w' && enemyClass == 'k') {
 			playerWizard.hp = playerWizard.maxHP;
+			playerWizard.modAC = playerWizard.AC;
 			battlewk();
 		}
 		else if (charClass == 'w' && enemyClass == 'a') {
 			playerWizard.hp = playerWizard.maxHP;
+			playerWizard.modAC = playerWizard.AC;
 			battlewa();
 		}
 		else if (charClass == 'w' && enemyClass == 'w') {
 			playerWizard.hp = playerWizard.maxHP;
+			playerWizard.modAC = playerWizard.AC;
 			battleww();
 		}
 		else if (charClass != 'k' && charClass != 'a' && charClass != 'w' && enemyClass == 'k' && enemyClass == 'a' && enemyClass == 'w') {
@@ -1520,6 +1653,7 @@ void battleStart() {
 }
 int main() {
 	srand(time(0));
+	clearScreen();
 	cout << "Welcome to Fight the Knight!" << endl;
 	cout << "Press Enter to start" << endl;
 	cin.ignore();

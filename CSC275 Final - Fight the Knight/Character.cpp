@@ -30,9 +30,29 @@ void Character::dodge()
 }
 int Character::taunt(int eInt, int eWis, int eCha)
 {
-	cout << "Which stat do you want to use for your taunt? (Int, Wis, Cha)" << endl;
+	int roll;
 	string answer;
-	cin >> answer;
+	if (name == "Enemy") {
+		roll = rand() % 3 + 1;
+		if (roll == 1) {
+			answer = "Int";
+		}
+		else if (roll == 2) {
+			answer = "Wis";
+		}
+		else if (roll == 3) {
+			answer = "Cha";
+		}
+		else if (roll != 1 && roll != 2 && roll != 3) {
+			cout << "ERROR: Invalid roll" << endl;
+			taunt(eInt, eWis, eCha);
+		}
+	}
+	else
+	{
+		cout << "Which stat do you want to use for your taunt? (Int, Wis, Cha)" << endl;
+		cin >> answer;
+	}
 	try
 	{
 		if (answer == "Int") {

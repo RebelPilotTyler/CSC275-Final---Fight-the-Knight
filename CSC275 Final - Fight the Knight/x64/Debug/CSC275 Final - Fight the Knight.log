@@ -1,17 +1,17 @@
 ﻿  Main.cpp
-C:\Users\tyler\Documents\Homeschool Files\UAT Files\Semester 2\CSC275 C++ Programming 2\CSC275 Final - Fight the Knight\Main.cpp(66,15): warning C4101: 'j': unreferenced local variable
-C:\Users\tyler\Documents\Homeschool Files\UAT Files\Semester 2\CSC275 C++ Programming 2\CSC275 Final - Fight the Knight\Main.cpp(88,15): warning C4101: 'j': unreferenced local variable
-C:\Users\tyler\Documents\Homeschool Files\UAT Files\Semester 2\CSC275 C++ Programming 2\CSC275 Final - Fight the Knight\Main.cpp(110,15): warning C4101: 'j': unreferenced local variable
-C:\Users\tyler\Documents\Homeschool Files\UAT Files\Semester 2\CSC275 C++ Programming 2\CSC275 Final - Fight the Knight\Main.cpp(208,13): warning C4101: 'i': unreferenced local variable
-C:\Users\tyler\Documents\Homeschool Files\UAT Files\Semester 2\CSC275 C++ Programming 2\CSC275 Final - Fight the Knight\Main.cpp(338,17): warning C4101: 'j': unreferenced local variable
-C:\Users\tyler\Documents\Homeschool Files\UAT Files\Semester 2\CSC275 C++ Programming 2\CSC275 Final - Fight the Knight\Main.cpp(359,17): warning C4101: 'j': unreferenced local variable
-C:\Users\tyler\Documents\Homeschool Files\UAT Files\Semester 2\CSC275 C++ Programming 2\CSC275 Final - Fight the Knight\Main.cpp(380,17): warning C4101: 'j': unreferenced local variable
-C:\Users\tyler\Documents\Homeschool Files\UAT Files\Semester 2\CSC275 C++ Programming 2\CSC275 Final - Fight the Knight\Main.cpp(475,15): warning C4101: 'i': unreferenced local variable
-C:\Users\tyler\Documents\Homeschool Files\UAT Files\Semester 2\CSC275 C++ Programming 2\CSC275 Final - Fight the Knight\Main.cpp(682,17): warning C4101: 'i': unreferenced local variable
-C:\Users\tyler\Documents\Homeschool Files\UAT Files\Semester 2\CSC275 C++ Programming 2\CSC275 Final - Fight the Knight\Main.cpp(749,17): warning C4101: 'i': unreferenced local variable
-C:\Users\tyler\Documents\Homeschool Files\UAT Files\Semester 2\CSC275 C++ Programming 2\CSC275 Final - Fight the Knight\Main.cpp(816,16): warning C4101: 'i': unreferenced local variable
-C:\Users\tyler\Documents\Homeschool Files\UAT Files\Semester 2\CSC275 C++ Programming 2\CSC275 Final - Fight the Knight\Main.cpp(883,16): warning C4101: 'i': unreferenced local variable
-C:\Users\tyler\Documents\Homeschool Files\UAT Files\Semester 2\CSC275 C++ Programming 2\CSC275 Final - Fight the Knight\Main.cpp(950,16): warning C4101: 'i': unreferenced local variable
-C:\Users\tyler\Documents\Homeschool Files\UAT Files\Semester 2\CSC275 C++ Programming 2\CSC275 Final - Fight the Knight\Main.cpp(1017,16): warning C4101: 'i': unreferenced local variable
-C:\Users\tyler\Documents\Homeschool Files\UAT Files\Semester 2\CSC275 C++ Programming 2\CSC275 Final - Fight the Knight\Main.cpp(1522,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\tyler\Documents\Homeschool Files\UAT Files\Semester 2\CSC275 C++ Programming 2\CSC275 Final - Fight the Knight\Main.cpp(77,15): warning C4101: 'j': unreferenced local variable
+C:\Users\tyler\Documents\Homeschool Files\UAT Files\Semester 2\CSC275 C++ Programming 2\CSC275 Final - Fight the Knight\Main.cpp(99,15): warning C4101: 'j': unreferenced local variable
+C:\Users\tyler\Documents\Homeschool Files\UAT Files\Semester 2\CSC275 C++ Programming 2\CSC275 Final - Fight the Knight\Main.cpp(121,15): warning C4101: 'j': unreferenced local variable
+C:\Users\tyler\Documents\Homeschool Files\UAT Files\Semester 2\CSC275 C++ Programming 2\CSC275 Final - Fight the Knight\Main.cpp(222,13): warning C4101: 'i': unreferenced local variable
+C:\Users\tyler\Documents\Homeschool Files\UAT Files\Semester 2\CSC275 C++ Programming 2\CSC275 Final - Fight the Knight\Main.cpp(356,17): warning C4101: 'j': unreferenced local variable
+C:\Users\tyler\Documents\Homeschool Files\UAT Files\Semester 2\CSC275 C++ Programming 2\CSC275 Final - Fight the Knight\Main.cpp(377,17): warning C4101: 'j': unreferenced local variable
+C:\Users\tyler\Documents\Homeschool Files\UAT Files\Semester 2\CSC275 C++ Programming 2\CSC275 Final - Fight the Knight\Main.cpp(398,17): warning C4101: 'j': unreferenced local variable
+C:\Users\tyler\Documents\Homeschool Files\UAT Files\Semester 2\CSC275 C++ Programming 2\CSC275 Final - Fight the Knight\Main.cpp(496,15): warning C4101: 'i': unreferenced local variable
+C:\Users\tyler\Documents\Homeschool Files\UAT Files\Semester 2\CSC275 C++ Programming 2\CSC275 Final - Fight the Knight\Main.cpp(714,17): warning C4101: 'i': unreferenced local variable
+C:\Users\tyler\Documents\Homeschool Files\UAT Files\Semester 2\CSC275 C++ Programming 2\CSC275 Final - Fight the Knight\Main.cpp(785,17): warning C4101: 'i': unreferenced local variable
+C:\Users\tyler\Documents\Homeschool Files\UAT Files\Semester 2\CSC275 C++ Programming 2\CSC275 Final - Fight the Knight\Main.cpp(856,16): warning C4101: 'i': unreferenced local variable
+C:\Users\tyler\Documents\Homeschool Files\UAT Files\Semester 2\CSC275 C++ Programming 2\CSC275 Final - Fight the Knight\Main.cpp(927,16): warning C4101: 'i': unreferenced local variable
+C:\Users\tyler\Documents\Homeschool Files\UAT Files\Semester 2\CSC275 C++ Programming 2\CSC275 Final - Fight the Knight\Main.cpp(998,16): warning C4101: 'i': unreferenced local variable
+C:\Users\tyler\Documents\Homeschool Files\UAT Files\Semester 2\CSC275 C++ Programming 2\CSC275 Final - Fight the Knight\Main.cpp(1069,16): warning C4101: 'i': unreferenced local variable
+C:\Users\tyler\Documents\Homeschool Files\UAT Files\Semester 2\CSC275 C++ Programming 2\CSC275 Final - Fight the Knight\Main.cpp(1655,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   CSC275 Final - Fight the Knight.vcxproj -> C:\Users\tyler\Documents\Homeschool Files\UAT Files\Semester 2\CSC275 C++ Programming 2\CSC275 Final - Fight the Knight\x64\Debug\CSC275 Final - Fight the Knight.exe
