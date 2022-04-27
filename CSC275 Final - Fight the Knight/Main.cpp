@@ -31,6 +31,7 @@ Archer enemyArcher;
 Wizard enemyWizard;
 bool saving = false;
 bool firstMenu = true;
+int enemyLVL = 1;
 void clearScreen() {
 	for (int i = 0; i <= 50; i++) {
 		cout << endl;
@@ -403,7 +404,25 @@ void mainMenu() {
 				}
 				else if (i == 4) {
 					cout << "ERROR: Invalid answer." << endl;
-					buildNewCharacter();
+					mainMenu();
+				}
+			}
+			try
+			{
+				cout << endl;
+				cout << "What level would you like the enemy to be?" << endl;
+				cin >> answer;
+				if (!isdigit(answer[0])) {
+					throw 1;
+				}
+				enemyLVL = stoi(answer);
+				Sleep(2000);
+			}
+			catch (int i)
+			{
+				if (i == 1) {
+					cout << "ERROR: Invalid answer" << endl;
+					mainMenu();
 				}
 			}
 			try
@@ -430,7 +449,32 @@ void mainMenu() {
 					enemyKnight.inT = ((enemyKnight.rollD6() + enemyKnight.rollD6() + enemyKnight.rollD6() + enemyKnight.rollD6()) - 10) / 2;
 					enemyKnight.wis = ((enemyKnight.rollD6() + enemyKnight.rollD6() + enemyKnight.rollD6() + enemyKnight.rollD6()) - 10) / 2;
 					enemyKnight.cha = ((enemyKnight.rollD6() + enemyKnight.rollD6() + enemyKnight.rollD6() + enemyKnight.rollD6()) - 10) / 2;
-					enemyKnight.lvl = 1;
+					enemyKnight.lvl = enemyLVL;
+					for (int i = 0; i <= enemyLVL; i++) {
+						int roll = rand() % 6 + 1;
+						if (roll == 1) {
+							enemyKnight.str++;
+						}
+						else if (roll == 2) {
+							enemyKnight.dex++;
+						}
+						else if (roll == 3) {
+							enemyKnight.con++;
+						}
+						else if (roll == 4) {
+							enemyKnight.inT++;
+						}
+						else if (roll == 5) {
+							enemyKnight.wis++;
+						}
+						else if (roll == 6) {
+							enemyKnight.cha++;
+						}
+						else if (roll != 1 && roll != 2 && roll != 3 && roll != 4 && roll != 5 && roll != 6) {
+							cout << "ERROR: Invalid roll" << endl;
+							mainMenu();
+						}
+					}
 					enemyKnight.name = "Enemy";//FIX ME
 					enemyKnight.maxHP = (enemyKnight.con + 8) * enemyKnight.lvl;
 					enemyKnight.hp = enemyKnight.maxHP;
@@ -444,7 +488,32 @@ void mainMenu() {
 					enemyArcher.inT = ((enemyArcher.rollD6() + enemyArcher.rollD6() + enemyArcher.rollD6() + enemyArcher.rollD6()) - 10) / 2;
 					enemyArcher.wis = ((enemyArcher.rollD6() + enemyArcher.rollD6() + enemyArcher.rollD6() + enemyArcher.rollD6()) - 10) / 2;
 					enemyArcher.cha = ((enemyArcher.rollD6() + enemyArcher.rollD6() + enemyArcher.rollD6() + enemyArcher.rollD6()) - 10) / 2;
-					enemyArcher.lvl = 1;
+					enemyArcher.lvl = enemyLVL;
+					for (int i = 0; i <= enemyLVL; i++) {
+						int roll = rand() % 6 + 1;
+						if (roll == 1) {
+							enemyArcher.str++;
+						}
+						else if (roll == 2) {
+							enemyArcher.dex++;
+						}
+						else if (roll == 3) {
+							enemyArcher.con++;
+						}
+						else if (roll == 4) {
+							enemyArcher.inT++;
+						}
+						else if (roll == 5) {
+							enemyArcher.wis++;
+						}
+						else if (roll == 6) {
+							enemyArcher.cha++;
+						}
+						else if (roll != 1 && roll != 2 && roll != 3 && roll != 4 && roll != 5 && roll != 6) {
+							cout << "ERROR: Invalid roll" << endl;
+							mainMenu();
+						}
+					}
 					enemyArcher.name = "Enemy";//FIX ME
 					enemyArcher.maxHP = (enemyArcher.con + 8) * enemyArcher.lvl;
 					enemyArcher.hp = enemyArcher.maxHP;
@@ -458,7 +527,32 @@ void mainMenu() {
 					enemyWizard.inT = ((enemyWizard.rollD6() + enemyWizard.rollD6() + enemyWizard.rollD6() + enemyWizard.rollD6()) - 10) / 2;
 					enemyWizard.wis = ((enemyWizard.rollD6() + enemyWizard.rollD6() + enemyWizard.rollD6() + enemyWizard.rollD6()) - 10) / 2;
 					enemyWizard.cha = ((enemyWizard.rollD6() + enemyWizard.rollD6() + enemyWizard.rollD6() + enemyWizard.rollD6()) - 10) / 2;
-					enemyWizard.lvl = 1;
+					enemyWizard.lvl = enemyLVL;
+					for (int i = 0; i <= enemyLVL; i++) {
+						int roll = rand() % 6 + 1;
+						if (roll == 1) {
+							enemyWizard.str++;
+						}
+						else if (roll == 2) {
+							enemyWizard.dex++;
+						}
+						else if (roll == 3) {
+							enemyWizard.con++;
+						}
+						else if (roll == 4) {
+							enemyWizard.inT++;
+						}
+						else if (roll == 5) {
+							enemyWizard.wis++;
+						}
+						else if (roll == 6) {
+							enemyWizard.cha++;
+						}
+						else if (roll != 1 && roll != 2 && roll != 3 && roll != 4 && roll != 5 && roll != 6) {
+							cout << "ERROR: Invalid roll" << endl;
+							mainMenu();
+						}
+					}
 					enemyWizard.name = "Enemy";//FIX ME
 					enemyWizard.maxHP = (enemyWizard.con + 8) * enemyWizard.lvl;
 					enemyWizard.hp = enemyWizard.maxHP;
@@ -470,10 +564,12 @@ void mainMenu() {
 					abort();
 				}
 			}
+			Sleep(1500);
 			cout << "Your opponent is ready!" << endl;
 			Sleep(1500);
 			cout << "Let the battle begin!" << endl;
-			Sleep(3000);
+			cout << "Press Enter to start." << endl;
+			cin.ignore();
 			return;
 		}
 		else if (answer == "Build New Character") {
@@ -643,11 +739,21 @@ void mainMenu() {
 			cin >> answer;
 			try
 			{
-				if (XP <= 5) {
+				int xpRequired = 0;
+				if (charClass == 'k') {
+					xpRequired = playerKnight.lvl * 5;
+				}
+				else if (charClass == 'a') {
+					xpRequired = playerArcher.lvl * 5;
+				}
+				else if (charClass == 'w') {
+					xpRequired = playerWizard.lvl * 5;
+				}
+				if (XP < xpRequired) {
 					throw 2;
 				}
 				else if (answer == "Strength") {
-					cout << "Are you sure you want to spend 5 XP on upgrading strength?" << endl;
+					cout << "Are you sure you want to spend " << xpRequired <<  " XP on upgrading strength ? " << endl;
 					cin >> answer;
 					try
 					{
@@ -674,8 +780,8 @@ void mainMenu() {
 								if (i == 1) {
 									playerKnight.str++;
 									playerKnight.lvl++;
-									playerKnight.maxHP += playerKnight.rollD8();
-									XP -= 5;
+									playerKnight.maxHP = (playerKnight.con + 8) * playerKnight.lvl;
+									XP -= xpRequired;
 									cout << "Strength Upgraded to " << playerKnight.str << endl;
 									Sleep(2000);
 									mainMenu();
@@ -683,8 +789,8 @@ void mainMenu() {
 								if (i == 2) {
 									playerArcher.str++;
 									playerArcher.lvl++;
-									playerArcher.maxHP += playerArcher.rollD8();
-									XP -= 5;
+									playerArcher.maxHP = (playerArcher.con + 8) * playerArcher.lvl;
+									XP -= xpRequired;
 									cout << "Strength Upgraded to " << playerArcher.str << endl;
 									Sleep(2000);
 									mainMenu();
@@ -692,8 +798,8 @@ void mainMenu() {
 								if (i == 3) {
 									playerWizard.str++;
 									playerWizard.lvl++;
-									playerWizard.maxHP += playerWizard.rollD8();
-									XP -= 5;
+									playerWizard.maxHP = (playerWizard.con + 8) * playerWizard.lvl;
+									XP -= xpRequired;
 									cout << "Strength Upgraded to " << playerWizard.str << endl;
 									Sleep(2000);
 									mainMenu();
@@ -718,7 +824,7 @@ void mainMenu() {
 					}
 				}
 				else if (answer == "Dexterity") {
-					cout << "Are you sure you want to spend 5 XP on upgrading dexterity?" << endl;
+					cout << "Are you sure you want to spend " << xpRequired << " XP on upgrading dexterity?" << endl;
 					cin >> answer;
 					try
 					{
@@ -745,8 +851,9 @@ void mainMenu() {
 								if (i == 1) {
 									playerKnight.dex++;
 									playerKnight.lvl++;
-									playerKnight.maxHP += playerKnight.rollD8();
-									XP -= 5;
+									playerKnight.maxHP = (playerKnight.con + 8) * playerKnight.lvl;
+									playerKnight.AC = 11 + playerKnight.dex + 3;
+									XP -= xpRequired;
 									cout << "Dexterity Upgraded to " << playerKnight.dex << endl;
 									Sleep(2000);
 									mainMenu();
@@ -754,8 +861,9 @@ void mainMenu() {
 								if (i == 2) {
 									playerArcher.dex++;
 									playerArcher.lvl++;
-									playerArcher.maxHP += playerArcher.rollD8();
-									XP -= 5;
+									playerArcher.maxHP = (playerArcher.con + 8) * playerArcher.lvl;
+									playerArcher.AC = 11 + playerArcher.dex + 3;
+									XP -= xpRequired;
 									cout << "Dexterity Upgraded to " << playerArcher.dex << endl;
 									Sleep(2000);
 									mainMenu();
@@ -763,8 +871,9 @@ void mainMenu() {
 								if (i == 3) {
 									playerWizard.dex++;
 									playerWizard.lvl++;
-									playerWizard.maxHP += playerWizard.rollD8();
-									XP -= 5;
+									playerWizard.maxHP = (playerWizard.con + 8) * playerWizard.lvl;
+									playerWizard.AC = 11 + playerWizard.dex + 3;
+									XP -= xpRequired;
 									cout << "Dexterity Upgraded to " << playerWizard.dex << endl;
 									Sleep(2000);
 									mainMenu();
@@ -789,7 +898,7 @@ void mainMenu() {
 					}
 				}
 				else if (answer == "Constitution") {
-				cout << "Are you sure you want to spend 5 XP on upgrading constitution?" << endl;
+				cout << "Are you sure you want to spend " << xpRequired << " XP on upgrading constitution?" << endl;
 				cin >> answer;
 				try
 				{
@@ -816,8 +925,8 @@ void mainMenu() {
 							if (i == 1) {
 								playerKnight.con++;
 								playerKnight.lvl++;
-								playerKnight.maxHP += playerKnight.rollD8();
-								XP -= 5;
+								playerKnight.maxHP = (playerKnight.con + 8) * playerKnight.lvl;
+								XP -= xpRequired;
 								cout << "Constitution Upgraded to " << playerKnight.con << endl;
 								Sleep(2000);
 								mainMenu();
@@ -825,8 +934,8 @@ void mainMenu() {
 							if (i == 2) {
 								playerArcher.con++;
 								playerArcher.lvl++;
-								playerArcher.maxHP += playerArcher.rollD8();
-								XP -= 5;
+								playerArcher.maxHP = (playerArcher.con + 8) * playerArcher.lvl;
+								XP -= xpRequired;
 								cout << "Constitution Upgraded to " << playerArcher.con << endl;
 								Sleep(2000);
 								mainMenu();
@@ -834,8 +943,8 @@ void mainMenu() {
 							if (i == 3) {
 								playerWizard.con++;
 								playerWizard.lvl++;
-								playerWizard.maxHP += playerWizard.rollD8();
-								XP -= 5;
+								playerWizard.maxHP = (playerWizard.con + 8) * playerWizard.lvl;
+								XP -= xpRequired;
 								cout << "Constitution Upgraded to " << playerWizard.con << endl;
 								Sleep(2000);
 								mainMenu();
@@ -860,7 +969,7 @@ void mainMenu() {
 				}
 				}
 				else if (answer == "Intelligence") {
-				cout << "Are you sure you want to spend 5 XP on upgrading intelligence?" << endl;
+				cout << "Are you sure you want to spend " << xpRequired << " XP on upgrading intelligence?" << endl;
 				cin >> answer;
 				try
 				{
@@ -887,8 +996,8 @@ void mainMenu() {
 							if (i == 1) {
 								playerKnight.inT++;
 								playerKnight.lvl++;
-								playerKnight.maxHP += playerKnight.rollD8();
-								XP -= 5;
+								playerKnight.maxHP = (playerKnight.con + 8) * playerKnight.lvl;
+								XP -= xpRequired;
 								cout << "Intelligence Upgraded to " << playerKnight.inT << endl;
 								Sleep(2000);
 								mainMenu();
@@ -896,8 +1005,8 @@ void mainMenu() {
 							if (i == 2) {
 								playerArcher.inT++;
 								playerArcher.lvl++;
-								playerArcher.maxHP += playerArcher.rollD8();
-								XP -= 5;
+								playerArcher.maxHP = (playerArcher.con + 8) * playerArcher.lvl;
+								XP -= xpRequired;
 								cout << "Intelligence Upgraded to " << playerArcher.inT << endl;
 								Sleep(2000);
 								mainMenu();
@@ -905,8 +1014,8 @@ void mainMenu() {
 							if (i == 3) {
 								playerWizard.inT++;
 								playerWizard.lvl++;
-								playerWizard.maxHP += playerWizard.rollD8();
-								XP -= 5;
+								playerWizard.maxHP = (playerWizard.con + 8) * playerWizard.lvl;
+								XP -= xpRequired;
 								cout << "Intelligence Upgraded to " << playerWizard.inT << endl;
 								Sleep(2000);
 								mainMenu();
@@ -931,7 +1040,7 @@ void mainMenu() {
 				}
 				}
 				else if (answer == "Wisdom") {
-				cout << "Are you sure you want to spend 5 XP on upgrading wisdom?" << endl;
+				cout << "Are you sure you want to spend " << xpRequired << " XP on upgrading wisdom?" << endl;
 				cin >> answer;
 				try
 				{
@@ -958,8 +1067,8 @@ void mainMenu() {
 							if (i == 1) {
 								playerKnight.wis++;
 								playerKnight.lvl++;
-								playerKnight.maxHP += playerKnight.rollD8();
-								XP -= 5;
+								playerKnight.maxHP = (playerKnight.con + 8) * playerKnight.lvl;
+								XP -= xpRequired;
 								cout << "Wisdom Upgraded to " << playerKnight.wis << endl;
 								Sleep(2000);
 								mainMenu();
@@ -967,8 +1076,8 @@ void mainMenu() {
 							if (i == 2) {
 								playerArcher.wis++;
 								playerArcher.lvl++;
-								playerArcher.maxHP += playerArcher.rollD8();
-								XP -= 5;
+								playerArcher.maxHP = (playerArcher.con + 8) * playerArcher.lvl;
+								XP -= xpRequired;
 								cout << "Wisdom Upgraded to " << playerArcher.wis << endl;
 								Sleep(2000);
 								mainMenu();
@@ -976,8 +1085,8 @@ void mainMenu() {
 							if (i == 3) {
 								playerWizard.wis++;
 								playerWizard.lvl++;
-								playerWizard.maxHP += playerWizard.rollD8();
-								XP -= 5;
+								playerWizard.maxHP = (playerWizard.con + 8) * playerWizard.lvl;
+								XP -= xpRequired;
 								cout << "Wisdom Upgraded to " << playerWizard.wis << endl;
 								Sleep(2000);
 								mainMenu();
@@ -1002,7 +1111,7 @@ void mainMenu() {
 				}
 				}
 				else if (answer == "Charisma") {
-				cout << "Are you sure you want to spend 5 XP on upgrading charisma?" << endl;
+				cout << "Are you sure you want to spend " << xpRequired << " XP on upgrading charisma?" << endl;
 				cin >> answer;
 				try
 				{
@@ -1029,8 +1138,8 @@ void mainMenu() {
 							if (i == 1) {
 								playerKnight.cha++;
 								playerKnight.lvl++;
-								playerKnight.maxHP += playerKnight.rollD8();
-								XP -= 5;
+								playerKnight.maxHP = (playerKnight.con + 8) * playerKnight.lvl;
+								XP -= xpRequired;
 								cout << "Charisma Upgraded to " << playerKnight.cha << endl;
 								Sleep(2000);
 								mainMenu();
@@ -1038,8 +1147,8 @@ void mainMenu() {
 							if (i == 2) {
 								playerArcher.cha++;
 								playerArcher.lvl++;
-								playerArcher.maxHP += playerArcher.rollD8();
-								XP -= 5;
+								playerArcher.maxHP = (playerArcher.con + 8) * playerArcher.lvl;
+								XP -= xpRequired;
 								cout << "Charisma Upgraded to " << playerArcher.cha << endl;
 								Sleep(2000);
 								mainMenu();
@@ -1047,8 +1156,8 @@ void mainMenu() {
 							if (i == 3) {
 								playerWizard.cha++;
 								playerWizard.lvl++;
-								playerWizard.maxHP += playerWizard.rollD8();
-								XP -= 5;
+								playerWizard.maxHP = (playerWizard.con + 8) * playerWizard.lvl;
+								XP -= xpRequired;
 								cout << "Charisma Upgraded to " << playerWizard.cha << endl;
 								Sleep(2000);
 								mainMenu();
@@ -1084,6 +1193,7 @@ void mainMenu() {
 				}
 				else if (i == 2) {
 					cout << "You don't have enough XP to upgrade your character!" << endl;
+					Sleep(3000);
 					mainMenu();
 				}
 			}
@@ -1158,7 +1268,7 @@ void checkBattleEnd() {
 				battlesPlayed++;
 				battlesWon++;
 				playerKnight.hp = playerKnight.maxHP;
-				XP += 3;
+				XP += enemyLVL;
 				cout << "Press Enter to continue." << endl;
 				cin.ignore();
 				mainMenu();
@@ -1184,7 +1294,7 @@ void checkBattleEnd() {
 				battlesPlayed++;
 				battlesWon++;
 				playerKnight.hp = playerKnight.maxHP;
-				XP += 3;
+				XP += enemyLVL;
 				cout << "Press Enter to continue." << endl;
 				cin.ignore();
 				mainMenu();
@@ -1210,7 +1320,7 @@ void checkBattleEnd() {
 				battlesPlayed++;
 				battlesWon++;
 				playerKnight.hp = playerKnight.maxHP;
-				XP += 3;
+				XP += enemyLVL;
 				cout << "Press Enter to continue." << endl;
 				cin.ignore();
 				mainMenu();
@@ -1236,7 +1346,7 @@ void checkBattleEnd() {
 				battlesPlayed++;
 				battlesWon++;
 				playerArcher.hp = playerArcher.maxHP;
-				XP += 3;
+				XP += enemyLVL;
 				cout << "Press Enter to continue." << endl;
 				cin.ignore();
 				mainMenu();
@@ -1262,7 +1372,7 @@ void checkBattleEnd() {
 				battlesPlayed++;
 				battlesWon++;
 				playerArcher.hp = playerArcher.maxHP;
-				XP += 3;
+				XP += enemyLVL;
 				cout << "Press Enter to continue." << endl;
 				cin.ignore();
 				mainMenu();
@@ -1288,7 +1398,7 @@ void checkBattleEnd() {
 			battlesPlayed++;
 			battlesWon++;
 			playerArcher.hp = playerArcher.maxHP;
-			XP += 3;
+			XP += enemyLVL;
 			cout << "Press Enter to continue." << endl;
 			cin.ignore();
 			mainMenu();
@@ -1314,7 +1424,7 @@ void checkBattleEnd() {
 			battlesPlayed++;
 			battlesWon++;
 			playerWizard.hp = playerWizard.maxHP;
-			XP += 3;
+			XP += enemyLVL;
 			cout << "Press Enter to continue." << endl;
 			cin.ignore();
 			mainMenu();
@@ -1340,7 +1450,7 @@ void checkBattleEnd() {
 			battlesPlayed++;
 			battlesWon++;
 			playerWizard.hp = playerWizard.maxHP;
-			XP += 3;
+			XP += enemyLVL;
 			cout << "Press Enter to continue." << endl;
 			cin.ignore();
 			mainMenu();
@@ -1366,7 +1476,7 @@ void checkBattleEnd() {
 			battlesPlayed++;
 			battlesWon++;
 			playerWizard.hp = playerWizard.maxHP;
-			XP += 3;
+			XP += enemyLVL;
 			cout << "Press Enter to continue." << endl;
 			cin.ignore();
 			mainMenu();
@@ -1445,7 +1555,7 @@ void battlekk() {
 		cin.ignore();
 		cout << endl;
 		cout << endl;
-		int enemyMove = rand() % 5 + 1;
+		int enemyMove = rand() % 7 + 1;
 		try
 		{
 			if (enemyMove == 1) {
@@ -1454,11 +1564,11 @@ void battlekk() {
 			else if (enemyMove == 2) {
 				playerKnight.modAC -= enemyKnight.taunt(playerKnight.inT, playerKnight.wis, playerKnight.cha);
 			}
-			else if (enemyMove == 3) {
+			else if (enemyMove == 3 || enemyMove == 6) {
 				playerKnight.hp -= enemyKnight.slashAttack(playerKnight.modAC);
 				checkBattleEnd();
 			}
-			else if (enemyMove == 4) {
+			else if (enemyMove == 4 || enemyMove == 7) {
 				playerKnight.hp -= enemyKnight.stabAttack(playerKnight.modAC);
 				checkBattleEnd();
 			}
