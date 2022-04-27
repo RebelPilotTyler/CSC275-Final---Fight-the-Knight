@@ -6,7 +6,7 @@ int Knight::slashAttack(int enemyAC)
 {
     cout << name << " holds their sword high, preparing to strike..." << endl;
     int roll = rollD20() + str;
-    cout << "You rolled " << roll << endl;
+    cout << name << " rolled " << roll << endl;
     try
     {
         if (roll == 1) {
@@ -53,7 +53,7 @@ int Knight::stabAttack(int enemyAC)
 {
     cout << name << " pulled back their sword, preparing to thrust it at the enemy..." << endl;
     int roll = rollD20() + dex;
-    cout << "You rolled " << roll << endl;
+    cout << name << " rolled " << roll << endl;
     try
     {
         if (roll == 1) {

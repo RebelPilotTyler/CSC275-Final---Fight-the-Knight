@@ -5,7 +5,7 @@ using namespace std;
 int Archer::quickShotAttack(int enemyAC) {
     cout << name << " notches 3 arrows, carefully aiming all of them at the enemy..." << endl;
     int roll = rollD20() + dex;
-    cout << "You rolled " << roll << endl;
+    cout << name << " rolled " << roll << endl;
     try
     {
         if (roll == 1) {
@@ -50,7 +50,7 @@ int Archer::quickShotAttack(int enemyAC) {
 int Archer::powerShotAttack(int enemyAC) {
     cout << name << " pulls their bow all the way back, preparing to let loose a powerful shot..." << endl;
     int roll = rollD20() + dex;
-    cout << "You rolled " << roll << endl;
+    cout << name << " rolled " << roll << endl;
     try
     {
         if (roll == 1) {
