@@ -11,6 +11,8 @@
 #else
 #include <unistd.h>
 #endif
+#include <thread>
+#pragma comment(lib, "Winmm.lib")
 using namespace std;
 string playerName;
 int XP;
@@ -32,6 +34,24 @@ Wizard enemyWizard;
 bool saving = false;
 bool firstMenu = true;
 int enemyLVL = 1;
+thread mainSong;
+thread stopMainSong;
+thread battleSong;
+thread stopBattleSong;
+const wchar_t* path = L"The Eternal Voyage - Main Theme.WAV";
+const wchar_t* path2 = L"The Eternal Voyage - Battle Mor.WAV";
+void playMainSong() {
+	PlaySound(path, NULL, SND_FILENAME|SND_LOOP|SND_ASYNC);
+}
+void stop_MainSong() {
+	PlaySound(NULL, NULL, 0);
+}
+void playBattleSong() {
+	PlaySound(path2, NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+}
+void stop_BattleSong() {
+	PlaySound(NULL, NULL, 0);
+}
 void clearScreen() {
 	for (int i = 0; i <= 50; i++) {
 		cout << endl;
@@ -568,6 +588,7 @@ void mainMenu() {
 			cout << "Your opponent is ready!" << endl;
 			Sleep(1500);
 			cout << "Let the battle begin!" << endl;
+			Sleep(1500);
 			cout << "Press Enter to start." << endl;
 			cin.ignore();
 			return;
@@ -1259,6 +1280,10 @@ void checkBattleEnd() {
 				XP++;
 				cout << "Press Enter to continue." << endl;
 				cin.ignore();
+				thread stopBattleSong(stop_BattleSong);
+				stopBattleSong.join();
+				thread mainSong(playMainSong);
+				mainSong.join();
 				mainMenu();
 			}
 			else if (enemyKnight.hp <= 0) {
@@ -1271,6 +1296,10 @@ void checkBattleEnd() {
 				XP += enemyLVL;
 				cout << "Press Enter to continue." << endl;
 				cin.ignore();
+				thread stopBattleSong(stop_BattleSong);
+				stopBattleSong.join();
+				thread mainSong(playMainSong);
+				mainSong.join();
 				mainMenu();
 			}
 		}
@@ -1285,6 +1314,10 @@ void checkBattleEnd() {
 				XP++;
 				cout << "Press Enter to continue." << endl;
 				cin.ignore();
+				thread stopBattleSong(stop_BattleSong);
+				stopBattleSong.join();
+				thread mainSong(playMainSong);
+				mainSong.join();
 				mainMenu();
 			}
 			else if (enemyArcher.hp <= 0) {
@@ -1297,6 +1330,10 @@ void checkBattleEnd() {
 				XP += enemyLVL;
 				cout << "Press Enter to continue." << endl;
 				cin.ignore();
+				thread stopBattleSong(stop_BattleSong);
+				stopBattleSong.join();
+				thread mainSong(playMainSong);
+				mainSong.join();
 				mainMenu();
 			}
 		}
@@ -1311,6 +1348,10 @@ void checkBattleEnd() {
 				XP++;
 				cout << "Press Enter to continue." << endl;
 				cin.ignore();
+				thread stopBattleSong(stop_BattleSong);
+				stopBattleSong.join();
+				thread mainSong(playMainSong);
+				mainSong.join();
 				mainMenu();
 			}
 			else if (enemyWizard.hp <= 0) {
@@ -1323,6 +1364,10 @@ void checkBattleEnd() {
 				XP += enemyLVL;
 				cout << "Press Enter to continue." << endl;
 				cin.ignore();
+				thread stopBattleSong(stop_BattleSong);
+				stopBattleSong.join();
+				thread mainSong(playMainSong);
+				mainSong.join();
 				mainMenu();
 			}
 		}
@@ -1337,6 +1382,10 @@ void checkBattleEnd() {
 				XP++;
 				cout << "Press Enter to continue." << endl;
 				cin.ignore();
+				thread stopBattleSong(stop_BattleSong);
+				stopBattleSong.join();
+				thread mainSong(playMainSong);
+				mainSong.join();
 				mainMenu();
 			}
 			else if (enemyKnight.hp <= 0) {
@@ -1349,6 +1398,10 @@ void checkBattleEnd() {
 				XP += enemyLVL;
 				cout << "Press Enter to continue." << endl;
 				cin.ignore();
+				thread stopBattleSong(stop_BattleSong);
+				stopBattleSong.join();
+				thread mainSong(playMainSong);
+				mainSong.join();
 				mainMenu();
 			}
 		}
@@ -1363,6 +1416,10 @@ void checkBattleEnd() {
 				XP++;
 				cout << "Press Enter to continue." << endl;
 				cin.ignore();
+				thread stopBattleSong(stop_BattleSong);
+				stopBattleSong.join();
+				thread mainSong(playMainSong);
+				mainSong.join();
 				mainMenu();
 			}
 			else if (enemyArcher.hp <= 0) {
@@ -1375,6 +1432,10 @@ void checkBattleEnd() {
 				XP += enemyLVL;
 				cout << "Press Enter to continue." << endl;
 				cin.ignore();
+				thread stopBattleSong(stop_BattleSong);
+				stopBattleSong.join();
+				thread mainSong(playMainSong);
+				mainSong.join();
 				mainMenu();
 			}
 		}
@@ -1389,6 +1450,10 @@ void checkBattleEnd() {
 			XP++;
 			cout << "Press Enter to continue." << endl;
 			cin.ignore();
+			thread stopBattleSong(stop_BattleSong);
+			stopBattleSong.join();
+			thread mainSong(playMainSong);
+			mainSong.join();
 			mainMenu();
 		}
 		else if (enemyWizard.hp <= 0) {
@@ -1401,6 +1466,10 @@ void checkBattleEnd() {
 			XP += enemyLVL;
 			cout << "Press Enter to continue." << endl;
 			cin.ignore();
+			thread stopBattleSong(stop_BattleSong);
+			stopBattleSong.join();
+			thread mainSong(playMainSong);
+			mainSong.join();
 			mainMenu();
 		}
 		}
@@ -1415,6 +1484,10 @@ void checkBattleEnd() {
 			XP++;
 			cout << "Press Enter to continue." << endl;
 			cin.ignore();
+			thread stopBattleSong(stop_BattleSong);
+			stopBattleSong.join();
+			thread mainSong(playMainSong);
+			mainSong.join();
 			mainMenu();
 		}
 		else if (enemyKnight.hp <= 0) {
@@ -1427,6 +1500,10 @@ void checkBattleEnd() {
 			XP += enemyLVL;
 			cout << "Press Enter to continue." << endl;
 			cin.ignore();
+			thread stopBattleSong(stop_BattleSong);
+			stopBattleSong.join();
+			thread mainSong(playMainSong);
+			mainSong.join();
 			mainMenu();
 		}
 		}
@@ -1441,6 +1518,10 @@ void checkBattleEnd() {
 			XP++;
 			cout << "Press Enter to continue." << endl;
 			cin.ignore();
+			thread stopBattleSong(stop_BattleSong);
+			stopBattleSong.join();
+			thread mainSong(playMainSong);
+			mainSong.join();
 			mainMenu();
 		}
 		else if (enemyArcher.hp <= 0) {
@@ -1453,6 +1534,10 @@ void checkBattleEnd() {
 			XP += enemyLVL;
 			cout << "Press Enter to continue." << endl;
 			cin.ignore();
+			thread stopBattleSong(stop_BattleSong);
+			stopBattleSong.join();
+			thread mainSong(playMainSong);
+			mainSong.join();
 			mainMenu();
 		}
 		}
@@ -1467,6 +1552,10 @@ void checkBattleEnd() {
 			XP++;
 			cout << "Press Enter to continue." << endl;
 			cin.ignore();
+			thread stopBattleSong(stop_BattleSong);
+			stopBattleSong.join();
+			thread mainSong(playMainSong);
+			mainSong.join();
 			mainMenu();
 		}
 		else if (enemyWizard.hp <= 0) {
@@ -1479,6 +1568,10 @@ void checkBattleEnd() {
 			XP += enemyLVL;
 			cout << "Press Enter to continue." << endl;
 			cin.ignore();
+			thread stopBattleSong(stop_BattleSong);
+			stopBattleSong.join();
+			thread mainSong(playMainSong);
+			mainSong.join();
 			mainMenu();
 		}
 		}
@@ -3142,6 +3235,10 @@ void battleww() {
 	battleww();
 }
 void battleStart() {
+	thread stopMainSong(stop_MainSong);
+	stopMainSong.join();
+	thread battleSong(playBattleSong);
+	battleSong.join();
 	try
 	{
 		if (charClass == 'k' && enemyClass == 'k') {
@@ -3204,6 +3301,8 @@ void battleStart() {
 int main() {
 	srand(time(0));
 	clearScreen();
+	thread mainSong(playMainSong);
+	mainSong.join();
 	cout << "Welcome to Fight the Knight!" << endl;
 	cout << "Press Enter to start" << endl;
 	cin.ignore();
