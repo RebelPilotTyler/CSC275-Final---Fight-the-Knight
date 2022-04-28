@@ -175,7 +175,7 @@ void buildNewCharacter() {
 			playerArcher.name = playerName;
 			playerArcher.maxHP = (playerArcher.con + 8) * playerArcher.lvl;
 			playerArcher.hp = playerArcher.maxHP;
-			playerArcher.AC = 11 + playerArcher.dex + 3;
+			playerArcher.AC = 11 + playerArcher.dex;
 			playerArcher.modAC = playerArcher.AC;
 		}
 		if (i == 3) {
@@ -189,7 +189,7 @@ void buildNewCharacter() {
 			playerWizard.name = playerName;
 			playerWizard.maxHP = (playerWizard.con + 8) * playerWizard.lvl;
 			playerWizard.hp = playerWizard.maxHP;
-			playerWizard.AC = 11 + playerWizard.dex + 3;
+			playerWizard.AC = 11 + playerWizard.dex - 1;
 			playerWizard.modAC = playerWizard.AC;
 		}
 		else if (i == 4) {
@@ -517,7 +517,7 @@ void mainMenu() {
 					enemyArcher.name = "Enemy";//FIX ME
 					enemyArcher.maxHP = (enemyArcher.con + 8) * enemyArcher.lvl;
 					enemyArcher.hp = enemyArcher.maxHP;
-					enemyArcher.AC = 11 + enemyArcher.dex + 3;
+					enemyArcher.AC = 11 + enemyArcher.dex;
 					enemyArcher.modAC = enemyArcher.AC;
 				}
 				if (i == 3) {
@@ -556,7 +556,7 @@ void mainMenu() {
 					enemyWizard.name = "Enemy";//FIX ME
 					enemyWizard.maxHP = (enemyWizard.con + 8) * enemyWizard.lvl;
 					enemyWizard.hp = enemyWizard.maxHP;
-					enemyWizard.AC = 11 + enemyWizard.dex + 3;
+					enemyWizard.AC = 11 + enemyWizard.dex - 2;
 					enemyWizard.modAC = enemyWizard.AC;
 				}
 				else if (i == 4) {
