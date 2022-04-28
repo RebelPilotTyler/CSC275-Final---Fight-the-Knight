@@ -427,16 +427,16 @@ void mainMenu() {
 			}
 			try
 			{
-				if (charClass == 'k') {
+				if (enemyClass == 'k') {
 					throw 1;
 				}
-				if (charClass == 'a') {
+				if (enemyClass == 'a') {
 					throw 2;
 				}
-				if (charClass == 'w') {
+				if (enemyClass == 'w') {
 					throw 3;
 				}
-				else if (charClass != 'k' && charClass != 'a' && charClass != 'w') {
+				else if (enemyClass != 'k' && enemyClass != 'a' && enemyClass != 'w') {
 					throw 4;
 				}
 			}
@@ -1572,7 +1572,7 @@ void battlekk() {
 				playerKnight.hp -= enemyKnight.stabAttack(playerKnight.modAC);
 				checkBattleEnd();
 			}
-			else if (enemyMove) {
+			else if (enemyMove == 5) {
 				enemyKnight.block();
 			}
 			else if (enemyMove != 1 && enemyMove != 2 && enemyMove != 3 && enemyMove != 4 && enemyMove != 5) {
@@ -1593,7 +1593,7 @@ void battlekk() {
 		cout << enemyKnight.name << " speeds ahead of " << playerKnight.name << "..." << endl;
 		Sleep(3000);
 		cout << endl;
-		int enemyMove = rand() % 5 + 1;
+		int enemyMove = rand() % 7 + 1;
 		try
 		{
 			if (enemyMove == 1) {
@@ -1602,15 +1602,15 @@ void battlekk() {
 			else if (enemyMove == 2) {
 				playerKnight.modAC -= enemyKnight.taunt(playerKnight.inT, playerKnight.wis, playerKnight.cha);
 			}
-			else if (enemyMove == 3) {
+			else if (enemyMove == 3 || enemyMove == 6) {
 				playerKnight.hp -= enemyKnight.slashAttack(playerKnight.modAC);
 				checkBattleEnd();
 			}
-			else if (enemyMove == 4) {
+			else if (enemyMove == 4 || enemyMove == 7) {
 				playerKnight.hp -= enemyKnight.stabAttack(playerKnight.modAC);
 				checkBattleEnd();
 			}
-			else if (enemyMove) {
+			else if (enemyMove == 5) {
 				enemyKnight.block();
 			}
 			else if (enemyMove != 1 && enemyMove != 2 && enemyMove != 3 && enemyMove != 4 && enemyMove != 5) {
@@ -1678,28 +1678,1468 @@ void battlekk() {
 	battlekk();
 }
 void battleka() {
+	clearScreen();
+	cout << playerName << endl;
+	cout << "HP: " << playerKnight.hp << "/" << playerKnight.maxHP << endl;
+	cout << "AC: " << playerKnight.modAC << "/" << playerKnight.AC << endl;
+	cout << endl;
+	cout << enemyArcher.name << endl;
+	cout << "HP: " << enemyArcher.hp << "/" << enemyArcher.maxHP << endl;
+	cout << "AC: " << enemyArcher.modAC << "/" << enemyArcher.AC << endl;
+	if (playerKnight.dex > enemyArcher.dex) {
+		playerKnight.modAC = playerKnight.AC;
+		enemyArcher.modAC = enemyArcher.AC;
+		cout << endl;
+		cout << playerKnight.name << " speeds ahead of their opponent..." << endl;
+		Sleep(2000);
+		cout << endl;
+		cout << "What move would you like to use?" << endl;
+		cout << "Move List:" << endl;
+		cout << "Dodge: Get a bonus to AC as you attempt to dodge your opponent's next attack." << endl;
+		cout << "Taunt: Lower the enemy's AC using Intelligence, Wisdom, or Charisma." << endl;
+		cout << "Slash Attack: A basic slashing attack." << endl;
+		cout << "Stab Attack: A basic stab attack." << endl;
+		cout << "Block: Use your shield to help block attacks!" << endl;
+		getline(cin, answer);
+		Sleep(2000);
+		try
+		{
+			if (answer == "Dodge") {
+				playerKnight.dodge();
+			}
+			else if (answer == "Taunt") {
+				enemyArcher.modAC -= playerKnight.taunt(enemyArcher.inT, enemyArcher.wis, enemyArcher.cha);
+			}
+			else if (answer == "Slash Attack") {
+				enemyArcher.hp -= playerKnight.slashAttack(enemyArcher.modAC);
+				checkBattleEnd();
+			}
+			else if (answer == "Stab Attack") {
+				enemyArcher.hp -= playerKnight.stabAttack(enemyArcher.modAC);
+				checkBattleEnd();
+			}
+			else if (answer == "Block") {
+				playerKnight.block();
+			}
+			else if (answer != "Dodge" && answer != "Taunt" && answer != "Slash Attack" && answer != "Stab Attack" && answer != "Block") {
+				throw 1;
+			}
+		}
+		catch (int i)
+		{
+			if (i == 1) {
+				cout << "ERROR: Invalid answer" << endl;
+				battleka();
+			}
+		}
 
+
+		cout << "Press Enter to continue." << endl;
+		cin.ignore();
+		cout << endl;
+		cout << endl;
+		int enemyMove = rand() % 7 + 1;
+		try
+		{
+			if (enemyMove == 1) {
+				enemyArcher.dodge();
+			}
+			else if (enemyMove == 2) {
+				playerKnight.modAC -= enemyArcher.taunt(playerKnight.inT, playerKnight.wis, playerKnight.cha);
+			}
+			else if (enemyMove == 3 || enemyMove == 6) {
+				playerKnight.hp -= enemyArcher.quickShotAttack(playerKnight.modAC);
+				checkBattleEnd();
+			}
+			else if (enemyMove == 4 || enemyMove == 7) {
+				playerKnight.hp -= enemyArcher.powerShotAttack(playerKnight.modAC);
+				checkBattleEnd();
+			}
+			else if (enemyMove == 5) {
+				playerKnight.modAC -= enemyArcher.hide(playerKnight.wis);
+			}
+			else if (enemyMove != 1 && enemyMove != 2 && enemyMove != 3 && enemyMove != 4 && enemyMove != 5) {
+				throw 1;
+			}
+		}
+		catch (int i)
+		{
+			if (i == 1) {
+				cout << "ERROR: Invalid enemy move" << endl;
+				battleka();
+			}
+		}
+		Sleep(5000);
+	}
+	else if (enemyArcher.dex >= playerKnight.dex) {
+		cout << endl;
+		cout << enemyArcher.name << " speeds ahead of " << playerKnight.name << "..." << endl;
+		Sleep(3000);
+		cout << endl;
+		int enemyMove = rand() % 7 + 1;
+		try
+		{
+			if (enemyMove == 1) {
+				enemyArcher.dodge();
+			}
+			else if (enemyMove == 2) {
+				playerKnight.modAC -= enemyArcher.taunt(playerKnight.inT, playerKnight.wis, playerKnight.cha);
+			}
+			else if (enemyMove == 3 || enemyMove == 6) {
+				playerKnight.hp -= enemyArcher.quickShotAttack(playerKnight.modAC);
+				checkBattleEnd();
+			}
+			else if (enemyMove == 4 || enemyMove == 7) {
+				playerKnight.hp -= enemyArcher.powerShotAttack(playerKnight.modAC);
+				checkBattleEnd();
+			}
+			else if (enemyMove == 5) {
+				playerKnight.modAC -= enemyArcher.hide(playerKnight.wis);
+			}
+			else if (enemyMove != 1 && enemyMove != 2 && enemyMove != 3 && enemyMove != 4 && enemyMove != 5) {
+				throw 1;
+			}
+		}
+		catch (int i)
+		{
+			if (i == 1) {
+				cout << "ERROR: Invalid enemy move" << endl;
+				battleka();
+			}
+		}
+
+
+		cout << "Press Enter to continue." << endl;
+		cin.ignore();
+		playerKnight.modAC = playerKnight.AC;
+		enemyArcher.modAC = enemyArcher.AC;
+		cout << endl;
+		cout << endl;
+		cout << "What move would you like to use?" << endl;
+		cout << "Move List:" << endl;
+		cout << "Dodge: Get a bonus to AC as you attempt to dodge your opponent's next attack." << endl;
+		cout << "Taunt: Lower the enemy's AC using Intelligence, Wisdom, or Charisma." << endl;
+		cout << "Slash Attack: A basic slashing attack." << endl;
+		cout << "Stab Attack: A basic stab attack." << endl;
+		cout << "Block: Use your shield to help block attacks!" << endl;
+		getline(cin, answer);
+		Sleep(2000);
+		try
+		{
+			if (answer == "Dodge") {
+				playerKnight.dodge();
+			}
+			else if (answer == "Taunt") {
+				enemyArcher.modAC -= playerKnight.taunt(enemyArcher.inT, enemyArcher.wis, enemyArcher.cha);
+			}
+			else if (answer == "Slash Attack") {
+				enemyArcher.hp -= playerKnight.slashAttack(enemyArcher.modAC);
+				checkBattleEnd();
+			}
+			else if (answer == "Stab Attack") {
+				enemyArcher.hp -= playerKnight.stabAttack(enemyArcher.modAC);
+				checkBattleEnd();
+			}
+			else if (answer == "Block") {
+				playerKnight.block();
+			}
+			else if (answer != "Dodge" && answer != "Taunt" && answer != "Slash Attack" && answer != "Stab Attack" && answer != "Block") {
+				throw 1;
+			}
+		}
+		catch (int i)
+		{
+			if (i == 1) {
+				cout << "ERROR: Invalid answer" << endl;
+				battleka();
+			}
+		}
+		Sleep(5000);
+	}
+	cout << "Press Enter to continue." << endl;
+	cin.ignore();
+	battleka();
 }
 void battlekw() {
+	clearScreen();
+	cout << playerName << endl;
+	cout << "HP: " << playerKnight.hp << "/" << playerKnight.maxHP << endl;
+	cout << "AC: " << playerKnight.modAC << "/" << playerKnight.AC << endl;
+	cout << endl;
+	cout << enemyWizard.name << endl;
+	cout << "HP: " << enemyWizard.hp << "/" << enemyWizard.maxHP << endl;
+	cout << "AC: " << enemyWizard.modAC << "/" << enemyWizard.AC << endl;
+	if (playerKnight.dex > enemyWizard.dex) {
+		playerKnight.modAC = playerKnight.AC;
+		enemyWizard.modAC = enemyWizard.AC;
+		cout << endl;
+		cout << playerKnight.name << " speeds ahead of their opponent..." << endl;
+		Sleep(2000);
+		cout << endl;
+		cout << "What move would you like to use?" << endl;
+		cout << "Move List:" << endl;
+		cout << "Dodge: Get a bonus to AC as you attempt to dodge your opponent's next attack." << endl;
+		cout << "Taunt: Lower the enemy's AC using Intelligence, Wisdom, or Charisma." << endl;
+		cout << "Slash Attack: A basic slashing attack." << endl;
+		cout << "Stab Attack: A basic stab attack." << endl;
+		cout << "Block: Use your shield to help block attacks!" << endl;
+		getline(cin, answer);
+		Sleep(2000);
+		try
+		{
+			if (answer == "Dodge") {
+				playerKnight.dodge();
+			}
+			else if (answer == "Taunt") {
+				enemyWizard.modAC -= playerKnight.taunt(enemyWizard.inT, enemyWizard.wis, enemyWizard.cha);
+			}
+			else if (answer == "Slash Attack") {
+				enemyWizard.hp -= playerKnight.slashAttack(enemyWizard.modAC);
+				checkBattleEnd();
+			}
+			else if (answer == "Stab Attack") {
+				enemyWizard.hp -= playerKnight.stabAttack(enemyWizard.modAC);
+				checkBattleEnd();
+			}
+			else if (answer == "Block") {
+				playerKnight.block();
+			}
+			else if (answer != "Dodge" && answer != "Taunt" && answer != "Slash Attack" && answer != "Stab Attack" && answer != "Block") {
+				throw 1;
+			}
+		}
+		catch (int i)
+		{
+			if (i == 1) {
+				cout << "ERROR: Invalid answer" << endl;
+				battlekw();
+			}
+		}
 
+
+		cout << "Press Enter to continue." << endl;
+		cin.ignore();
+		cout << endl;
+		cout << endl;
+		int enemyMove = rand() % 7 + 1;
+		try
+		{
+			if (enemyMove == 1) {
+				enemyWizard.dodge();
+			}
+			else if (enemyMove == 2) {
+				playerKnight.modAC -= enemyWizard.taunt(playerKnight.inT, playerKnight.wis, playerKnight.cha);
+			}
+			else if (enemyMove == 3 || enemyMove == 6) {
+				playerKnight.hp -= enemyWizard.fireAttack(playerKnight.str);
+				checkBattleEnd();
+			}
+			else if (enemyMove == 4 || enemyMove == 7) {
+				playerKnight.hp -= enemyWizard.lightningAttack(playerKnight.dex);
+				checkBattleEnd();
+			}
+			else if (enemyMove == 5) {
+				playerKnight.hp -= enemyWizard.iceAttack(playerKnight.con);
+			}
+			else if (enemyMove != 1 && enemyMove != 2 && enemyMove != 3 && enemyMove != 4 && enemyMove != 5) {
+				throw 1;
+			}
+		}
+		catch (int i)
+		{
+			if (i == 1) {
+				cout << "ERROR: Invalid enemy move" << endl;
+				battlekw();
+			}
+		}
+		Sleep(5000);
+	}
+	else if (enemyWizard.dex >= playerKnight.dex) {
+		cout << endl;
+		cout << enemyWizard.name << " speeds ahead of " << playerKnight.name << "..." << endl;
+		Sleep(3000);
+		cout << endl;
+		int enemyMove = rand() % 7 + 1;
+		try
+		{
+			if (enemyMove == 1) {
+				enemyWizard.dodge();
+			}
+			else if (enemyMove == 2) {
+				playerKnight.modAC -= enemyWizard.taunt(playerKnight.inT, playerKnight.wis, playerKnight.cha);
+			}
+			else if (enemyMove == 3 || enemyMove == 6) {
+				playerKnight.hp -= enemyWizard.fireAttack(playerKnight.str);
+				checkBattleEnd();
+			}
+			else if (enemyMove == 4 || enemyMove == 7) {
+				playerKnight.hp -= enemyWizard.lightningAttack(playerKnight.dex);
+				checkBattleEnd();
+			}
+			else if (enemyMove == 5) {
+				playerKnight.hp -= enemyWizard.iceAttack(playerKnight.con);
+			}
+			else if (enemyMove != 1 && enemyMove != 2 && enemyMove != 3 && enemyMove != 4 && enemyMove != 5) {
+				throw 1;
+			}
+		}
+		catch (int i)
+		{
+			if (i == 1) {
+				cout << "ERROR: Invalid enemy move" << endl;
+				battlekw();
+			}
+		}
+
+
+		cout << "Press Enter to continue." << endl;
+		cin.ignore();
+		playerKnight.modAC = playerKnight.AC;
+		enemyWizard.modAC = enemyWizard.AC;
+		cout << endl;
+		cout << endl;
+		cout << "What move would you like to use?" << endl;
+		cout << "Move List:" << endl;
+		cout << "Dodge: Get a bonus to AC as you attempt to dodge your opponent's next attack." << endl;
+		cout << "Taunt: Lower the enemy's AC using Intelligence, Wisdom, or Charisma." << endl;
+		cout << "Slash Attack: A basic slashing attack." << endl;
+		cout << "Stab Attack: A basic stab attack." << endl;
+		cout << "Block: Use your shield to help block attacks!" << endl;
+		getline(cin, answer);
+		Sleep(2000);
+		try
+		{
+			if (answer == "Dodge") {
+				playerKnight.dodge();
+			}
+			else if (answer == "Taunt") {
+				enemyWizard.modAC -= playerKnight.taunt(enemyWizard.inT, enemyWizard.wis, enemyWizard.cha);
+			}
+			else if (answer == "Slash Attack") {
+				enemyWizard.hp -= playerKnight.slashAttack(enemyWizard.modAC);
+				checkBattleEnd();
+			}
+			else if (answer == "Stab Attack") {
+				enemyWizard.hp -= playerKnight.stabAttack(enemyWizard.modAC);
+				checkBattleEnd();
+			}
+			else if (answer == "Block") {
+				playerKnight.block();
+			}
+			else if (answer != "Dodge" && answer != "Taunt" && answer != "Slash Attack" && answer != "Stab Attack" && answer != "Block") {
+				throw 1;
+			}
+		}
+		catch (int i)
+		{
+			if (i == 1) {
+				cout << "ERROR: Invalid answer" << endl;
+				battlekw();
+			}
+		}
+		Sleep(5000);
+	}
+	cout << "Press Enter to continue." << endl;
+	cin.ignore();
+	battlekw();
 }
 void battleak() {
+	clearScreen();
+	cout << playerName << endl;
+	cout << "HP: " << playerArcher.hp << "/" << playerArcher.maxHP << endl;
+	cout << "AC: " << playerArcher.modAC << "/" << playerArcher.AC << endl;
+	cout << endl;
+	cout << enemyKnight.name << endl;
+	cout << "HP: " << enemyKnight.hp << "/" << enemyKnight.maxHP << endl;
+	cout << "AC: " << enemyKnight.modAC << "/" << enemyKnight.AC << endl;
+	if (playerArcher.dex > enemyKnight.dex) {
+		playerArcher.modAC = playerArcher.AC;
+		enemyKnight.modAC = enemyKnight.AC;
+		cout << endl;
+		cout << playerArcher.name << " speeds ahead of their opponent..." << endl;
+		Sleep(2000);
+		cout << endl;
+		cout << "What move would you like to use?" << endl;
+		cout << "Move List:" << endl;
+		cout << "Dodge: Get a bonus to AC as you attempt to dodge your opponent's next attack." << endl;
+		cout << "Taunt: Lower the enemy's AC using Intelligence, Wisdom, or Charisma." << endl;
+		cout << "Quick Shot Attack: Shoot 3 arrows at your opponent." << endl;
+		cout << "Power Shot Attack: Shoot 1 powerful arrow at your opponent." << endl;
+		cout << "Hide: Hide from your enemy and lower their defense!" << endl;
+		getline(cin, answer);
+		Sleep(2000);
+		try
+		{
+			if (answer == "Dodge") {
+				playerArcher.dodge();
+			}
+			else if (answer == "Taunt") {
+				enemyKnight.modAC -= playerArcher.taunt(enemyKnight.inT, enemyKnight.wis, enemyKnight.cha);
+			}
+			else if (answer == "Quick Shot Attack") {
+				enemyKnight.hp -= playerArcher.quickShotAttack(enemyKnight.modAC);
+				checkBattleEnd();
+			}
+			else if (answer == "Power Shot Attack") {
+				enemyKnight.hp -= playerArcher.powerShotAttack(enemyKnight.modAC);
+				checkBattleEnd();
+			}
+			else if (answer == "Hide") {
+				enemyKnight.modAC -= playerArcher.hide(enemyKnight.wis);
+			}
+			else if (answer != "Dodge" && answer != "Taunt" && answer != "Quick Shot Attack" && answer != "Power Shot Attack" && answer != "Hide") {
+				throw 1;
+			}
+		}
+		catch (int i)
+		{
+			if (i == 1) {
+				cout << "ERROR: Invalid answer" << endl;
+				battleak();
+			}
+		}
 
+
+		cout << "Press Enter to continue." << endl;
+		cin.ignore();
+		cout << endl;
+		cout << endl;
+		int enemyMove = rand() % 7 + 1;
+		try
+		{
+			if (enemyMove == 1) {
+				enemyKnight.dodge();
+			}
+			else if (enemyMove == 2) {
+				playerArcher.modAC -= enemyKnight.taunt(playerArcher.inT, playerArcher.wis, playerArcher.cha);
+			}
+			else if (enemyMove == 3 || enemyMove == 6) {
+				playerArcher.hp -= enemyKnight.slashAttack(playerArcher.modAC);
+				checkBattleEnd();
+			}
+			else if (enemyMove == 4 || enemyMove == 7) {
+				playerArcher.hp -= enemyKnight.stabAttack(playerArcher.modAC);
+				checkBattleEnd();
+			}
+			else if (enemyMove == 5) {
+				enemyKnight.block();
+			}
+			else if (enemyMove != 1 && enemyMove != 2 && enemyMove != 3 && enemyMove != 4 && enemyMove != 5) {
+				throw 1;
+			}
+		}
+		catch (int i)
+		{
+			if (i == 1) {
+				cout << "ERROR: Invalid enemy move" << endl;
+				battleak();
+			}
+		}
+		Sleep(5000);
+	}
+	else if (enemyKnight.dex >= playerArcher.dex) {
+		cout << endl;
+		cout << enemyKnight.name << " speeds ahead of " << playerArcher.name << "..." << endl;
+		Sleep(3000);
+		cout << endl;
+		int enemyMove = rand() % 7 + 1;
+		try
+		{
+			if (enemyMove == 1) {
+				enemyKnight.dodge();
+			}
+			else if (enemyMove == 2) {
+				playerArcher.modAC -= enemyKnight.taunt(playerArcher.inT, playerArcher.wis, playerArcher.cha);
+			}
+			else if (enemyMove == 3 || enemyMove == 6) {
+				playerArcher.hp -= enemyKnight.slashAttack(playerArcher.modAC);
+				checkBattleEnd();
+			}
+			else if (enemyMove == 4 || enemyMove == 7) {
+				playerArcher.hp -= enemyKnight.stabAttack(playerArcher.modAC);
+				checkBattleEnd();
+			}
+			else if (enemyMove == 5) {
+				enemyKnight.block();
+			}
+			else if (enemyMove != 1 && enemyMove != 2 && enemyMove != 3 && enemyMove != 4 && enemyMove != 5) {
+				throw 1;
+			}
+		}
+		catch (int i)
+		{
+			if (i == 1) {
+				cout << "ERROR: Invalid enemy move" << endl;
+				battleak();
+			}
+		}
+
+
+		cout << "Press Enter to continue." << endl;
+		cin.ignore();
+		playerArcher.modAC = playerArcher.AC;
+		enemyKnight.modAC = enemyKnight.AC;
+		cout << endl;
+		cout << endl;
+		cout << "What move would you like to use?" << endl;
+		cout << "Move List:" << endl;
+		cout << "Dodge: Get a bonus to AC as you attempt to dodge your opponent's next attack." << endl;
+		cout << "Taunt: Lower the enemy's AC using Intelligence, Wisdom, or Charisma." << endl;
+		cout << "Quick Shot Attack: Shoot 3 arrows at your opponent." << endl;
+		cout << "Power Shot Attack: Shoot one powerful shot at your opponent." << endl;
+		cout << "Hide: Hide from your enemy and lower their defense!" << endl;
+		getline(cin, answer);
+		Sleep(2000);
+		try
+		{
+			if (answer == "Dodge") {
+				playerArcher.dodge();
+			}
+			else if (answer == "Taunt") {
+				enemyKnight.modAC -= playerArcher.taunt(enemyKnight.inT, enemyKnight.wis, enemyKnight.cha);
+			}
+			else if (answer == "Quick Shot Attack") {
+				enemyKnight.hp -= playerArcher.quickShotAttack(enemyKnight.modAC);
+				checkBattleEnd();
+			}
+			else if (answer == "Power Shot Attack") {
+				enemyKnight.hp -= playerArcher.powerShotAttack(enemyKnight.modAC);
+				checkBattleEnd();
+			}
+			else if (answer == "Hide") {
+				enemyKnight.modAC -= playerArcher.hide(enemyKnight.wis);
+			}
+			else if (answer != "Dodge" && answer != "Taunt" && answer != "Quick Shot Attack" && answer != "Power Shot Attack" && answer != "Hide") {
+				throw 1;
+			}
+		}
+		catch (int i)
+		{
+			if (i == 1) {
+				cout << "ERROR: Invalid answer" << endl;
+				battleak();
+			}
+		}
+		Sleep(5000);
+	}
+	cout << "Press Enter to continue." << endl;
+	cin.ignore();
+	battleak();
 }
 void battleaa() {
+	clearScreen();
+	cout << playerName << endl;
+	cout << "HP: " << playerArcher.hp << "/" << playerArcher.maxHP << endl;
+	cout << "AC: " << playerArcher.modAC << "/" << playerArcher.AC << endl;
+	cout << endl;
+	cout << enemyArcher.name << endl;
+	cout << "HP: " << enemyArcher.hp << "/" << enemyArcher.maxHP << endl;
+	cout << "AC: " << enemyArcher.modAC << "/" << enemyArcher.AC << endl;
+	if (playerArcher.dex > enemyArcher.dex) {
+		playerArcher.modAC = playerArcher.AC;
+		enemyArcher.modAC = enemyArcher.AC;
+		cout << endl;
+		cout << playerArcher.name << " speeds ahead of their opponent..." << endl;
+		Sleep(2000);
+		cout << endl;
+		cout << "What move would you like to use?" << endl;
+		cout << "Move List:" << endl;
+		cout << "Dodge: Get a bonus to AC as you attempt to dodge your opponent's next attack." << endl;
+		cout << "Taunt: Lower the enemy's AC using Intelligence, Wisdom, or Charisma." << endl;
+		cout << "Quick Shot Attack: Shoot 3 arrows at your opponent." << endl;
+		cout << "Power Shot Attack: Shoot 1 powerful arrow at your opponent." << endl;
+		cout << "Hide: Hide from your enemy and lower their defense!" << endl;
+		getline(cin, answer);
+		Sleep(2000);
+		try
+		{
+			if (answer == "Dodge") {
+				playerArcher.dodge();
+			}
+			else if (answer == "Taunt") {
+				enemyArcher.modAC -= playerArcher.taunt(enemyArcher.inT, enemyArcher.wis, enemyArcher.cha);
+			}
+			else if (answer == "Quick Shot Attack") {
+				enemyArcher.hp -= playerArcher.quickShotAttack(enemyArcher.modAC);
+				checkBattleEnd();
+			}
+			else if (answer == "Power Shot Attack") {
+				enemyArcher.hp -= playerArcher.powerShotAttack(enemyArcher.modAC);
+				checkBattleEnd();
+			}
+			else if (answer == "Hide") {
+				enemyArcher.modAC -= playerArcher.hide(enemyArcher.wis);
+			}
+			else if (answer != "Dodge" && answer != "Taunt" && answer != "Quick Shot Attack" && answer != "Power Shot Attack" && answer != "Hide") {
+				throw 1;
+			}
+		}
+		catch (int i)
+		{
+			if (i == 1) {
+				cout << "ERROR: Invalid answer" << endl;
+				battleaa();
+			}
+		}
 
+
+		cout << "Press Enter to continue." << endl;
+		cin.ignore();
+		cout << endl;
+		cout << endl;
+		int enemyMove = rand() % 7 + 1;
+		try
+		{
+			if (enemyMove == 1) {
+				enemyArcher.dodge();
+			}
+			else if (enemyMove == 2) {
+				playerArcher.modAC -= enemyArcher.taunt(playerArcher.inT, playerArcher.wis, playerArcher.cha);
+			}
+			else if (enemyMove == 3 || enemyMove == 6) {
+				playerArcher.hp -= enemyArcher.quickShotAttack(playerArcher.modAC);
+				checkBattleEnd();
+			}
+			else if (enemyMove == 4 || enemyMove == 7) {
+				playerArcher.hp -= enemyArcher.powerShotAttack(playerArcher.modAC);
+				checkBattleEnd();
+			}
+			else if (enemyMove == 5) {
+				playerArcher.modAC -= enemyArcher.hide(playerArcher.wis);
+			}
+			else if (enemyMove != 1 && enemyMove != 2 && enemyMove != 3 && enemyMove != 4 && enemyMove != 5) {
+				throw 1;
+			}
+		}
+		catch (int i)
+		{
+			if (i == 1) {
+				cout << "ERROR: Invalid enemy move" << endl;
+				battleaa();
+			}
+		}
+		Sleep(5000);
+	}
+	else if (enemyArcher.dex >= playerArcher.dex) {
+		cout << endl;
+		cout << enemyArcher.name << " speeds ahead of " << playerArcher.name << "..." << endl;
+		Sleep(3000);
+		cout << endl;
+		int enemyMove = rand() % 7 + 1;
+		try
+		{
+			if (enemyMove == 1) {
+				enemyArcher.dodge();
+			}
+			else if (enemyMove == 2) {
+				playerArcher.modAC -= enemyArcher.taunt(playerArcher.inT, playerArcher.wis, playerArcher.cha);
+			}
+			else if (enemyMove == 3 || enemyMove == 6) {
+				playerArcher.hp -= enemyArcher.quickShotAttack(playerArcher.modAC);
+				checkBattleEnd();
+			}
+			else if (enemyMove == 4 || enemyMove == 7) {
+				playerArcher.hp -= enemyArcher.powerShotAttack(playerArcher.modAC);
+				checkBattleEnd();
+			}
+			else if (enemyMove == 5) {
+				playerArcher.modAC -= enemyArcher.hide(playerArcher.wis);
+			}
+			else if (enemyMove != 1 && enemyMove != 2 && enemyMove != 3 && enemyMove != 4 && enemyMove != 5) {
+				throw 1;
+			}
+		}
+		catch (int i)
+		{
+			if (i == 1) {
+				cout << "ERROR: Invalid enemy move" << endl;
+				battleaa();
+			}
+		}
+
+
+		cout << "Press Enter to continue." << endl;
+		cin.ignore();
+		playerArcher.modAC = playerArcher.AC;
+		enemyArcher.modAC = enemyArcher.AC;
+		cout << endl;
+		cout << endl;
+		cout << "What move would you like to use?" << endl;
+		cout << "Move List:" << endl;
+		cout << "Dodge: Get a bonus to AC as you attempt to dodge your opponent's next attack." << endl;
+		cout << "Taunt: Lower the enemy's AC using Intelligence, Wisdom, or Charisma." << endl;
+		cout << "Quick Shot Attack: Shoot 3 arrows at your opponent." << endl;
+		cout << "Power Shot Attack: Shoot one powerful shot at your opponent." << endl;
+		cout << "Hide: Hide from your enemy and lower their defense!" << endl;
+		getline(cin, answer);
+		Sleep(2000);
+		try
+		{
+			if (answer == "Dodge") {
+				playerArcher.dodge();
+			}
+			else if (answer == "Taunt") {
+				enemyArcher.modAC -= playerArcher.taunt(enemyArcher.inT, enemyArcher.wis, enemyArcher.cha);
+			}
+			else if (answer == "Quick Shot Attack") {
+				enemyArcher.hp -= playerArcher.quickShotAttack(enemyArcher.modAC);
+				checkBattleEnd();
+			}
+			else if (answer == "Power Shot Attack") {
+				enemyArcher.hp -= playerArcher.powerShotAttack(enemyArcher.modAC);
+				checkBattleEnd();
+			}
+			else if (answer == "Hide") {
+				enemyArcher.modAC -= playerArcher.hide(enemyArcher.wis);
+			}
+			else if (answer != "Dodge" && answer != "Taunt" && answer != "Quick Shot Attack" && answer != "Power Shot Attack" && answer != "Hide") {
+				throw 1;
+			}
+		}
+		catch (int i)
+		{
+			if (i == 1) {
+				cout << "ERROR: Invalid answer" << endl;
+				battleaa();
+			}
+		}
+		Sleep(5000);
+	}
+	cout << "Press Enter to continue." << endl;
+	cin.ignore();
+	battleaa();
 }
 void battleaw() {
+	clearScreen();
+	cout << playerName << endl;
+	cout << "HP: " << playerArcher.hp << "/" << playerArcher.maxHP << endl;
+	cout << "AC: " << playerArcher.modAC << "/" << playerArcher.AC << endl;
+	cout << endl;
+	cout << enemyWizard.name << endl;
+	cout << "HP: " << enemyWizard.hp << "/" << enemyWizard.maxHP << endl;
+	cout << "AC: " << enemyWizard.modAC << "/" << enemyWizard.AC << endl;
+	if (playerArcher.dex > enemyWizard.dex) {
+		playerArcher.modAC = playerArcher.AC;
+		enemyWizard.modAC = enemyWizard.AC;
+		cout << endl;
+		cout << playerArcher.name << " speeds ahead of their opponent..." << endl;
+		Sleep(2000);
+		cout << endl;
+		cout << "What move would you like to use?" << endl;
+		cout << "Move List:" << endl;
+		cout << "Dodge: Get a bonus to AC as you attempt to dodge your opponent's next attack." << endl;
+		cout << "Taunt: Lower the enemy's AC using Intelligence, Wisdom, or Charisma." << endl;
+		cout << "Quick Shot Attack: Shoot 3 arrows at your opponent." << endl;
+		cout << "Power Shot Attack: Shoot 1 powerful arrow at your opponent." << endl;
+		cout << "Hide: Hide from your enemy and lower their defense!" << endl;
+		getline(cin, answer);
+		Sleep(2000);
+		try
+		{
+			if (answer == "Dodge") {
+				playerArcher.dodge();
+			}
+			else if (answer == "Taunt") {
+				enemyWizard.modAC -= playerArcher.taunt(enemyWizard.inT, enemyWizard.wis, enemyWizard.cha);
+			}
+			else if (answer == "Quick Shot Attack") {
+				enemyWizard.hp -= playerArcher.quickShotAttack(enemyWizard.modAC);
+				checkBattleEnd();
+			}
+			else if (answer == "Power Shot Attack") {
+				enemyWizard.hp -= playerArcher.powerShotAttack(enemyWizard.modAC);
+				checkBattleEnd();
+			}
+			else if (answer == "Hide") {
+				enemyWizard.modAC -= playerArcher.hide(enemyWizard.wis);
+			}
+			else if (answer != "Dodge" && answer != "Taunt" && answer != "Quick Shot Attack" && answer != "Power Shot Attack" && answer != "Hide") {
+				throw 1;
+			}
+		}
+		catch (int i)
+		{
+			if (i == 1) {
+				cout << "ERROR: Invalid answer" << endl;
+				battleaw();
+			}
+		}
 
+
+		cout << "Press Enter to continue." << endl;
+		cin.ignore();
+		cout << endl;
+		cout << endl;
+		int enemyMove = rand() % 7 + 1;
+		try
+		{
+			if (enemyMove == 1) {
+				enemyWizard.dodge();
+			}
+			else if (enemyMove == 2) {
+				playerArcher.modAC -= enemyWizard.taunt(playerArcher.inT, playerArcher.wis, playerArcher.cha);
+			}
+			else if (enemyMove == 3 || enemyMove == 6) {
+				playerArcher.hp -= enemyWizard.fireAttack(playerArcher.str);
+				checkBattleEnd();
+			}
+			else if (enemyMove == 4 || enemyMove == 7) {
+				playerArcher.hp -= enemyWizard.lightningAttack(playerArcher.dex);
+				checkBattleEnd();
+			}
+			else if (enemyMove == 5) {
+				playerArcher.hp -= enemyWizard.iceAttack(playerArcher.con);
+			}
+			else if (enemyMove != 1 && enemyMove != 2 && enemyMove != 3 && enemyMove != 4 && enemyMove != 5) {
+				throw 1;
+			}
+		}
+		catch (int i)
+		{
+			if (i == 1) {
+				cout << "ERROR: Invalid enemy move" << endl;
+				battleaw();
+			}
+		}
+		Sleep(5000);
+	}
+	else if (enemyWizard.dex >= playerArcher.dex) {
+		cout << endl;
+		cout << enemyWizard.name << " speeds ahead of " << playerArcher.name << "..." << endl;
+		Sleep(3000);
+		cout << endl;
+		int enemyMove = rand() % 7 + 1;
+		try
+		{
+			if (enemyMove == 1) {
+				enemyWizard.dodge();
+			}
+			else if (enemyMove == 2) {
+				playerArcher.modAC -= enemyWizard.taunt(playerArcher.inT, playerArcher.wis, playerArcher.cha);
+			}
+			else if (enemyMove == 3 || enemyMove == 6) {
+				playerArcher.hp -= enemyWizard.fireAttack(playerArcher.str);
+				checkBattleEnd();
+			}
+			else if (enemyMove == 4 || enemyMove == 7) {
+				playerArcher.hp -= enemyWizard.lightningAttack(playerArcher.dex);
+				checkBattleEnd();
+			}
+			else if (enemyMove == 5) {
+				playerArcher.hp -= enemyWizard.iceAttack(playerArcher.con);
+			}
+			else if (enemyMove != 1 && enemyMove != 2 && enemyMove != 3 && enemyMove != 4 && enemyMove != 5) {
+				throw 1;
+			}
+		}
+		catch (int i)
+		{
+			if (i == 1) {
+				cout << "ERROR: Invalid enemy move" << endl;
+				battleaw();
+			}
+		}
+
+
+		cout << "Press Enter to continue." << endl;
+		cin.ignore();
+		playerArcher.modAC = playerArcher.AC;
+		enemyWizard.modAC = enemyWizard.AC;
+		cout << endl;
+		cout << endl;
+		cout << "What move would you like to use?" << endl;
+		cout << "Move List:" << endl;
+		cout << "Dodge: Get a bonus to AC as you attempt to dodge your opponent's next attack." << endl;
+		cout << "Taunt: Lower the enemy's AC using Intelligence, Wisdom, or Charisma." << endl;
+		cout << "Quick Shot Attack: Shoot 3 arrows at your opponent." << endl;
+		cout << "Power Shot Attack: Shoot one powerful shot at your opponent." << endl;
+		cout << "Hide: Hide from your enemy and lower their defense!" << endl;
+		getline(cin, answer);
+		Sleep(2000);
+		try
+		{
+			if (answer == "Dodge") {
+				playerArcher.dodge();
+			}
+			else if (answer == "Taunt") {
+				enemyWizard.modAC -= playerArcher.taunt(enemyWizard.inT, enemyWizard.wis, enemyWizard.cha);
+			}
+			else if (answer == "Quick Shot Attack") {
+				enemyWizard.hp -= playerArcher.quickShotAttack(enemyWizard.modAC);
+				checkBattleEnd();
+			}
+			else if (answer == "Power Shot Attack") {
+				enemyWizard.hp -= playerArcher.powerShotAttack(enemyWizard.modAC);
+				checkBattleEnd();
+			}
+			else if (answer == "Hide") {
+				enemyWizard.modAC -= playerArcher.hide(enemyWizard.wis);
+			}
+			else if (answer != "Dodge" && answer != "Taunt" && answer != "Quick Shot Attack" && answer != "Power Shot Attack" && answer != "Hide") {
+				throw 1;
+			}
+		}
+		catch (int i)
+		{
+			if (i == 1) {
+				cout << "ERROR: Invalid answer" << endl;
+				battleaw();
+			}
+		}
+		Sleep(5000);
+	}
+	cout << "Press Enter to continue." << endl;
+	cin.ignore();
+	battleaw();
 }
 void battlewk() {
+	clearScreen();
+	cout << playerName << endl;
+	cout << "HP: " << playerWizard.hp << "/" << playerWizard.maxHP << endl;
+	cout << "AC: " << playerWizard.modAC << "/" << playerWizard.AC << endl;
+	cout << endl;
+	cout << enemyKnight.name << endl;
+	cout << "HP: " << enemyKnight.hp << "/" << enemyKnight.maxHP << endl;
+	cout << "AC: " << enemyKnight.modAC << "/" << enemyKnight.AC << endl;
+	if (playerWizard.dex > enemyKnight.dex) {
+		playerWizard.modAC = playerWizard.AC;
+		enemyKnight.modAC = enemyKnight.AC;
+		cout << endl;
+		cout << playerWizard.name << " speeds ahead of their opponent..." << endl;
+		Sleep(2000);
+		cout << endl;
+		cout << "What move would you like to use?" << endl;
+		cout << "Move List:" << endl;
+		cout << "Dodge: Get a bonus to AC as you attempt to dodge your opponent's next attack." << endl;
+		cout << "Taunt: Lower the enemy's AC using Intelligence, Wisdom, or Charisma." << endl;
+		cout << "Fire Attack: Throw a ball of fire at your opponent." << endl;
+		cout << "Lightning Attack: Shoot a bolt of lightning at your opponent." << endl;
+		cout << "Ice Attack: Throw a ball of ice at your opponent." << endl;
+		getline(cin, answer);
+		Sleep(2000);
+		try
+		{
+			if (answer == "Dodge") {
+				playerWizard.dodge();
+			}
+			else if (answer == "Taunt") {
+				enemyKnight.modAC -= playerWizard.taunt(enemyKnight.inT, enemyKnight.wis, enemyKnight.cha);
+			}
+			else if (answer == "Fire Attack") {
+				enemyKnight.hp -= playerWizard.fireAttack(enemyKnight.str);
+				checkBattleEnd();
+			}
+			else if (answer == "Lightning Attack") {
+				enemyKnight.hp -= playerWizard.lightningAttack(enemyKnight.dex);
+				checkBattleEnd();
+			}
+			else if (answer == "Ice Attack") {
+				enemyKnight.hp -= playerWizard.iceAttack(enemyKnight.con);
+			}
+			else if (answer != "Dodge" && answer != "Taunt" && answer != "Fire Attack" && answer != "Lightning Attack" && answer != "Ice Attack") {
+				throw 1;
+			}
+		}
+		catch (int i)
+		{
+			if (i == 1) {
+				cout << "ERROR: Invalid answer" << endl;
+				battlewk();
+			}
+		}
 
+
+		cout << "Press Enter to continue." << endl;
+		cin.ignore();
+		cout << endl;
+		cout << endl;
+		int enemyMove = rand() % 7 + 1;
+		try
+		{
+			if (enemyMove == 1) {
+				enemyKnight.dodge();
+			}
+			else if (enemyMove == 2) {
+				playerWizard.modAC -= enemyKnight.taunt(playerWizard.inT, playerWizard.wis, playerWizard.cha);
+			}
+			else if (enemyMove == 3 || enemyMove == 6) {
+				playerWizard.hp -= enemyKnight.slashAttack(playerWizard.modAC);
+				checkBattleEnd();
+			}
+			else if (enemyMove == 4 || enemyMove == 7) {
+				playerWizard.hp -= enemyKnight.stabAttack(playerWizard.modAC);
+				checkBattleEnd();
+			}
+			else if (enemyMove == 5) {
+				enemyKnight.block();
+			}
+			else if (enemyMove != 1 && enemyMove != 2 && enemyMove != 3 && enemyMove != 4 && enemyMove != 5) {
+				throw 1;
+			}
+		}
+		catch (int i)
+		{
+			if (i == 1) {
+				cout << "ERROR: Invalid enemy move" << endl;
+				battlewk();
+			}
+		}
+		Sleep(5000);
+	}
+	else if (enemyKnight.dex >= playerWizard.dex) {
+		cout << endl;
+		cout << enemyKnight.name << " speeds ahead of " << playerWizard.name << "..." << endl;
+		Sleep(3000);
+		cout << endl;
+		int enemyMove = rand() % 7 + 1;
+		try
+		{
+			if (enemyMove == 1) {
+				enemyKnight.dodge();
+			}
+			else if (enemyMove == 2) {
+				playerWizard.modAC -= enemyKnight.taunt(playerWizard.inT, playerWizard.wis, playerWizard.cha);
+			}
+			else if (enemyMove == 3 || enemyMove == 6) {
+				playerWizard.hp -= enemyKnight.slashAttack(playerWizard.modAC);
+				checkBattleEnd();
+			}
+			else if (enemyMove == 4 || enemyMove == 7) {
+				playerWizard.hp -= enemyKnight.stabAttack(playerWizard.modAC);
+				checkBattleEnd();
+			}
+			else if (enemyMove == 5) {
+				enemyKnight.block();
+			}
+			else if (enemyMove != 1 && enemyMove != 2 && enemyMove != 3 && enemyMove != 4 && enemyMove != 5) {
+				throw 1;
+			}
+		}
+		catch (int i)
+		{
+			if (i == 1) {
+				cout << "ERROR: Invalid enemy move" << endl;
+				battlewk();
+			}
+		}
+
+
+		cout << "Press Enter to continue." << endl;
+		cin.ignore();
+		playerWizard.modAC = playerWizard.AC;
+		enemyKnight.modAC = enemyKnight.AC;
+		cout << endl;
+		cout << endl;
+		cout << "What move would you like to use?" << endl;
+		cout << "Move List:" << endl;
+		cout << "Dodge: Get a bonus to AC as you attempt to dodge your opponent's next attack." << endl;
+		cout << "Taunt: Lower the enemy's AC using Intelligence, Wisdom, or Charisma." << endl;
+		cout << "Fire Attack: Throw a ball of fire at your opponent." << endl;
+		cout << "Lightning Attack: Shoot a bolt of lightning at your opponent." << endl;
+		cout << "Ice Attack: Throw a ball of ice at your opponent." << endl;
+		getline(cin, answer);
+		Sleep(2000);
+		try
+		{
+			if (answer == "Dodge") {
+				playerWizard.dodge();
+			}
+			else if (answer == "Taunt") {
+				enemyKnight.modAC -= playerWizard.taunt(enemyKnight.inT, enemyKnight.wis, enemyKnight.cha);
+			}
+			else if (answer == "Fire Attack") {
+				enemyKnight.hp -= playerWizard.fireAttack(enemyKnight.str);
+				checkBattleEnd();
+			}
+			else if (answer == "Lightning Attack") {
+				enemyKnight.hp -= playerWizard.lightningAttack(enemyKnight.dex);
+				checkBattleEnd();
+			}
+			else if (answer == "Ice Attack") {
+				enemyKnight.hp -= playerWizard.iceAttack(enemyKnight.con);
+			}
+			else if (answer != "Dodge" && answer != "Taunt" && answer != "Fire Attack" && answer != "Lightning Attack" && answer != "Ice Attack") {
+				throw 1;
+			}
+		}
+		catch (int i)
+		{
+			if (i == 1) {
+				cout << "ERROR: Invalid answer" << endl;
+				battlewk();
+			}
+		}
+		Sleep(5000);
+	}
+	cout << "Press Enter to continue." << endl;
+	cin.ignore();
+	battlewk();
 }
 void battlewa() {
+	clearScreen();
+	cout << playerName << endl;
+	cout << "HP: " << playerWizard.hp << "/" << playerWizard.maxHP << endl;
+	cout << "AC: " << playerWizard.modAC << "/" << playerWizard.AC << endl;
+	cout << endl;
+	cout << enemyArcher.name << endl;
+	cout << "HP: " << enemyArcher.hp << "/" << enemyArcher.maxHP << endl;
+	cout << "AC: " << enemyArcher.modAC << "/" << enemyArcher.AC << endl;
+	if (playerWizard.dex > enemyArcher.dex) {
+		playerWizard.modAC = playerWizard.AC;
+		enemyArcher.modAC = enemyArcher.AC;
+		cout << endl;
+		cout << playerWizard.name << " speeds ahead of their opponent..." << endl;
+		Sleep(2000);
+		cout << endl;
+		cout << "What move would you like to use?" << endl;
+		cout << "Move List:" << endl;
+		cout << "Dodge: Get a bonus to AC as you attempt to dodge your opponent's next attack." << endl;
+		cout << "Taunt: Lower the enemy's AC using Intelligence, Wisdom, or Charisma." << endl;
+		cout << "Fire Attack: Throw a ball of fire at your opponent." << endl;
+		cout << "Lightning Attack: Shoot a bolt of lightning at your opponent." << endl;
+		cout << "Ice Attack: Throw a ball of ice at your opponent." << endl;
+		getline(cin, answer);
+		Sleep(2000);
+		try
+		{
+			if (answer == "Dodge") {
+				playerWizard.dodge();
+			}
+			else if (answer == "Taunt") {
+				enemyArcher.modAC -= playerWizard.taunt(enemyArcher.inT, enemyArcher.wis, enemyArcher.cha);
+			}
+			else if (answer == "Fire Attack") {
+				enemyArcher.hp -= playerWizard.fireAttack(enemyArcher.str);
+				checkBattleEnd();
+			}
+			else if (answer == "Lightning Attack") {
+				enemyArcher.hp -= playerWizard.lightningAttack(enemyArcher.dex);
+				checkBattleEnd();
+			}
+			else if (answer == "Ice Attack") {
+				enemyArcher.hp -= playerWizard.iceAttack(enemyArcher.con);
+			}
+			else if (answer != "Dodge" && answer != "Taunt" && answer != "Fire Attack" && answer != "Lightning Attack" && answer != "Ice Attack") {
+				throw 1;
+			}
+		}
+		catch (int i)
+		{
+			if (i == 1) {
+				cout << "ERROR: Invalid answer" << endl;
+				battlewa();
+			}
+		}
 
+
+		cout << "Press Enter to continue." << endl;
+		cin.ignore();
+		cout << endl;
+		cout << endl;
+		int enemyMove = rand() % 7 + 1;
+		try
+		{
+			if (enemyMove == 1) {
+				enemyArcher.dodge();
+			}
+			else if (enemyMove == 2) {
+				playerWizard.modAC -= enemyArcher.taunt(playerWizard.inT, playerWizard.wis, playerWizard.cha);
+			}
+			else if (enemyMove == 3 || enemyMove == 6) {
+				playerWizard.hp -= enemyArcher.quickShotAttack(playerWizard.modAC);
+				checkBattleEnd();
+			}
+			else if (enemyMove == 4 || enemyMove == 7) {
+				playerWizard.hp -= enemyArcher.powerShotAttack(playerWizard.modAC);
+				checkBattleEnd();
+			}
+			else if (enemyMove == 5) {
+				playerWizard.modAC -= enemyArcher.hide(playerWizard.wis);
+			}
+			else if (enemyMove != 1 && enemyMove != 2 && enemyMove != 3 && enemyMove != 4 && enemyMove != 5) {
+				throw 1;
+			}
+		}
+		catch (int i)
+		{
+			if (i == 1) {
+				cout << "ERROR: Invalid enemy move" << endl;
+				battlewa();
+			}
+		}
+		Sleep(5000);
+	}
+	else if (enemyArcher.dex >= playerWizard.dex) {
+		cout << endl;
+		cout << enemyArcher.name << " speeds ahead of " << playerWizard.name << "..." << endl;
+		Sleep(3000);
+		cout << endl;
+		int enemyMove = rand() % 7 + 1;
+		try
+		{
+			if (enemyMove == 1) {
+				enemyArcher.dodge();
+			}
+			else if (enemyMove == 2) {
+				playerWizard.modAC -= enemyArcher.taunt(playerWizard.inT, playerWizard.wis, playerWizard.cha);
+			}
+			else if (enemyMove == 3 || enemyMove == 6) {
+				playerWizard.hp -= enemyArcher.quickShotAttack(playerWizard.modAC);
+				checkBattleEnd();
+			}
+			else if (enemyMove == 4 || enemyMove == 7) {
+				playerWizard.hp -= enemyArcher.powerShotAttack(playerWizard.modAC);
+				checkBattleEnd();
+			}
+			else if (enemyMove == 5) {
+				playerWizard.modAC -= enemyArcher.hide(playerWizard.wis);
+			}
+			else if (enemyMove != 1 && enemyMove != 2 && enemyMove != 3 && enemyMove != 4 && enemyMove != 5) {
+				throw 1;
+			}
+		}
+		catch (int i)
+		{
+			if (i == 1) {
+				cout << "ERROR: Invalid enemy move" << endl;
+				battlewa();
+			}
+		}
+
+
+		cout << "Press Enter to continue." << endl;
+		cin.ignore();
+		playerWizard.modAC = playerWizard.AC;
+		enemyArcher.modAC = enemyArcher.AC;
+		cout << endl;
+		cout << endl;
+		cout << "What move would you like to use?" << endl;
+		cout << "Move List:" << endl;
+		cout << "Dodge: Get a bonus to AC as you attempt to dodge your opponent's next attack." << endl;
+		cout << "Taunt: Lower the enemy's AC using Intelligence, Wisdom, or Charisma." << endl;
+		cout << "Fire Attack: Throw a ball of fire at your opponent." << endl;
+		cout << "Lightning Attack: Shoot a bolt of lightning at your opponent." << endl;
+		cout << "Ice Attack: Throw a ball of ice at your opponent." << endl;
+		getline(cin, answer);
+		Sleep(2000);
+		try
+		{
+			if (answer == "Dodge") {
+				playerWizard.dodge();
+			}
+			else if (answer == "Taunt") {
+				enemyArcher.modAC -= playerWizard.taunt(enemyArcher.inT, enemyArcher.wis, enemyArcher.cha);
+			}
+			else if (answer == "Fire Attack") {
+				enemyArcher.hp -= playerWizard.fireAttack(enemyArcher.str);
+				checkBattleEnd();
+			}
+			else if (answer == "Lightning Attack") {
+				enemyArcher.hp -= playerWizard.lightningAttack(enemyArcher.dex);
+				checkBattleEnd();
+			}
+			else if (answer == "Ice Attack") {
+				enemyArcher.hp -= playerWizard.iceAttack(enemyArcher.con);
+			}
+			else if (answer != "Dodge" && answer != "Taunt" && answer != "Fire Attack" && answer != "Lightning Attack" && answer != "Ice Attack") {
+				throw 1;
+			}
+		}
+		catch (int i)
+		{
+			if (i == 1) {
+				cout << "ERROR: Invalid answer" << endl;
+				battlewa();
+			}
+		}
+		Sleep(5000);
+	}
+	cout << "Press Enter to continue." << endl;
+	cin.ignore();
+	battlewa();
 }
 void battleww() {
+	clearScreen();
+	cout << playerName << endl;
+	cout << "HP: " << playerWizard.hp << "/" << playerWizard.maxHP << endl;
+	cout << "AC: " << playerWizard.modAC << "/" << playerWizard.AC << endl;
+	cout << endl;
+	cout << enemyWizard.name << endl;
+	cout << "HP: " << enemyWizard.hp << "/" << enemyWizard.maxHP << endl;
+	cout << "AC: " << enemyWizard.modAC << "/" << enemyWizard.AC << endl;
+	if (playerWizard.dex > enemyWizard.dex) {
+		playerWizard.modAC = playerWizard.AC;
+		enemyWizard.modAC = enemyWizard.AC;
+		cout << endl;
+		cout << playerWizard.name << " speeds ahead of their opponent..." << endl;
+		Sleep(2000);
+		cout << endl;
+		cout << "What move would you like to use?" << endl;
+		cout << "Move List:" << endl;
+		cout << "Dodge: Get a bonus to AC as you attempt to dodge your opponent's next attack." << endl;
+		cout << "Taunt: Lower the enemy's AC using Intelligence, Wisdom, or Charisma." << endl;
+		cout << "Fire Attack: Throw a ball of fire at your opponent." << endl;
+		cout << "Lightning Attack: Shoot a bolt of lightning at your opponent." << endl;
+		cout << "Ice Attack: Throw a ball of ice at your opponent." << endl;
+		getline(cin, answer);
+		Sleep(2000);
+		try
+		{
+			if (answer == "Dodge") {
+				playerWizard.dodge();
+			}
+			else if (answer == "Taunt") {
+				enemyWizard.modAC -= playerWizard.taunt(enemyWizard.inT, enemyWizard.wis, enemyWizard.cha);
+			}
+			else if (answer == "Fire Attack") {
+				enemyWizard.hp -= playerWizard.fireAttack(enemyWizard.str);
+				checkBattleEnd();
+			}
+			else if (answer == "Lightning Attack") {
+				enemyWizard.hp -= playerWizard.lightningAttack(enemyWizard.dex);
+				checkBattleEnd();
+			}
+			else if (answer == "Ice Attack") {
+				enemyWizard.hp -= playerWizard.iceAttack(enemyWizard.con);
+			}
+			else if (answer != "Dodge" && answer != "Taunt" && answer != "Fire Attack" && answer != "Lightning Attack" && answer != "Ice Attack") {
+				throw 1;
+			}
+		}
+		catch (int i)
+		{
+			if (i == 1) {
+				cout << "ERROR: Invalid answer" << endl;
+				battleww();
+			}
+		}
 
+
+		cout << "Press Enter to continue." << endl;
+		cin.ignore();
+		cout << endl;
+		cout << endl;
+		int enemyMove = rand() % 7 + 1;
+		try
+		{
+			if (enemyMove == 1) {
+				enemyWizard.dodge();
+			}
+			else if (enemyMove == 2) {
+				playerWizard.modAC -= enemyWizard.taunt(playerWizard.inT, playerWizard.wis, playerWizard.cha);
+			}
+			else if (enemyMove == 3 || enemyMove == 6) {
+				playerWizard.hp -= enemyWizard.fireAttack(playerWizard.str);
+				checkBattleEnd();
+			}
+			else if (enemyMove == 4 || enemyMove == 7) {
+				playerWizard.hp -= enemyWizard.lightningAttack(playerWizard.dex);
+				checkBattleEnd();
+			}
+			else if (enemyMove == 5) {
+				playerWizard.hp -= enemyWizard.iceAttack(playerWizard.con);
+			}
+			else if (enemyMove != 1 && enemyMove != 2 && enemyMove != 3 && enemyMove != 4 && enemyMove != 5) {
+				throw 1;
+			}
+		}
+		catch (int i)
+		{
+			if (i == 1) {
+				cout << "ERROR: Invalid enemy move" << endl;
+				battleww();
+			}
+		}
+		Sleep(5000);
+	}
+	else if (enemyWizard.dex >= playerWizard.dex) {
+		cout << endl;
+		cout << enemyWizard.name << " speeds ahead of " << playerWizard.name << "..." << endl;
+		Sleep(3000);
+		cout << endl;
+		int enemyMove = rand() % 7 + 1;
+		try
+		{
+			if (enemyMove == 1) {
+				enemyWizard.dodge();
+			}
+			else if (enemyMove == 2) {
+				playerWizard.modAC -= enemyWizard.taunt(playerWizard.inT, playerWizard.wis, playerWizard.cha);
+			}
+			else if (enemyMove == 3 || enemyMove == 6) {
+				playerWizard.hp -= enemyWizard.fireAttack(playerWizard.str);
+				checkBattleEnd();
+			}
+			else if (enemyMove == 4 || enemyMove == 7) {
+				playerWizard.hp -= enemyWizard.lightningAttack(playerWizard.dex);
+				checkBattleEnd();
+			}
+			else if (enemyMove == 5) {
+				playerWizard.hp -= enemyWizard.iceAttack(playerWizard.con);
+			}
+			else if (enemyMove != 1 && enemyMove != 2 && enemyMove != 3 && enemyMove != 4 && enemyMove != 5) {
+				throw 1;
+			}
+		}
+		catch (int i)
+		{
+			if (i == 1) {
+				cout << "ERROR: Invalid enemy move" << endl;
+				battleww();
+			}
+		}
+
+
+		cout << "Press Enter to continue." << endl;
+		cin.ignore();
+		playerWizard.modAC = playerWizard.AC;
+		enemyWizard.modAC = enemyWizard.AC;
+		cout << endl;
+		cout << endl;
+		cout << "What move would you like to use?" << endl;
+		cout << "Move List:" << endl;
+		cout << "Dodge: Get a bonus to AC as you attempt to dodge your opponent's next attack." << endl;
+		cout << "Taunt: Lower the enemy's AC using Intelligence, Wisdom, or Charisma." << endl;
+		cout << "Fire Attack: Throw a ball of fire at your opponent." << endl;
+		cout << "Lightning Attack: Shoot a bolt of lightning at your opponent." << endl;
+		cout << "Ice Attack: Throw a ball of ice at your opponent." << endl;
+		getline(cin, answer);
+		Sleep(2000);
+		try
+		{
+			if (answer == "Dodge") {
+				playerWizard.dodge();
+			}
+			else if (answer == "Taunt") {
+				enemyWizard.modAC -= playerWizard.taunt(enemyWizard.inT, enemyWizard.wis, enemyWizard.cha);
+			}
+			else if (answer == "Fire Attack") {
+				enemyWizard.hp -= playerWizard.fireAttack(enemyWizard.str);
+				checkBattleEnd();
+			}
+			else if (answer == "Lightning Attack") {
+				enemyWizard.hp -= playerWizard.lightningAttack(enemyWizard.dex);
+				checkBattleEnd();
+			}
+			else if (answer == "Ice Attack") {
+				enemyWizard.hp -= playerWizard.iceAttack(enemyWizard.con);
+			}
+			else if (answer != "Dodge" && answer != "Taunt" && answer != "Fire Attack" && answer != "Lightning Attack" && answer != "Ice Attack") {
+				throw 1;
+			}
+		}
+		catch (int i)
+		{
+			if (i == 1) {
+				cout << "ERROR: Invalid answer" << endl;
+				battleww();
+			}
+		}
+		Sleep(5000);
+	}
+	cout << "Press Enter to continue." << endl;
+	cin.ignore();
+	battleww();
 }
 void battleStart() {
 	try
