@@ -1,3 +1,5 @@
+//Fight the Knight, a text only, turn-based battle game with a custom soundtrack, and progress saving.
+//Created by Tyler Widener, tylerwidenerlm@gmail.com
 #include <iostream>
 #include <string>
 #include <fstream>
